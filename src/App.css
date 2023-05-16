@@ -1,0 +1,26 @@
+@font-face {
+  src: url('../public/font/creamfont-1.1.otf');
+  font-family: 'creamfont';
+}
+@font-face {
+  src: url('../public/font/17268978043080_jf-openhuninn-1.1.ttf');
+  font-family: 'jf-openhuninn';
+}
+
+:root {
+  --textColorWhite: #d7d7d7;
+  --deepBlue: #233a66;
+  --wordGray: #4f4f4f;
+  --orange1: #e59069;
+  --deepYellow: #f3d775;
+  --creamfont: creamfont;
+  --jfopenhuninn: jf-openhuninn;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  box-sizing: border-box;
+  /* font-family: creamfont; */
+}
