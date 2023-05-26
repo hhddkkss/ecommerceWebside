@@ -93,10 +93,11 @@ const Carousel = () => {
   `
 
   const AdvertiseText = styled.div`
-    width: 200px;
+    width: 250px;
     position: absolute;
-    top: 30%;
+    bottom: 10%;
     left: 8%;
+    letter-spacing: 0.05rem;
     background-color: #d7d7d74e;
     padding: 1rem;
     border-radius: 5px;

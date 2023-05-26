@@ -1,14 +1,13 @@
-import { useState } from 'react'
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 import './App.css'
-import Products from './pages/Products'
+import Product from './pages/Product'
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Products />}></Route>
+          <Route path="/" element={<Product />}></Route>
         </Routes>
       </Router>
     </>
