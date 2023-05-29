@@ -15,21 +15,21 @@ const Carousel = () => {
   const imgData = [
     {
       id: 1,
-      src: './images/product-carousel.png',
+      src: './images/product-carousel9.jpeg',
       content:
         '擁有優秀的攝影系統、高效能的處理器、長效的電池續航力以及快速的5G 上網速度。選擇 iPhone 13，讓您的生活更輕鬆、更便捷！',
       type: '本週主打商品',
     },
     {
       id: 2,
-      src: './images/product-carousel2.png',
+      src: './images/product-carousel6.jpeg',
       content:
         ' 您是否在尋找一款功能強大、操作簡單且攜帶方便的平板電腦呢？我們的平板電腦擁有先進的處理器、高清的顯示屏幕、長效的電池續航力以及輕便的設計，讓您隨時隨地輕鬆應對工作、娛樂等多種場合。選擇我們的平板電腦，讓您輕鬆享受多重便利！',
       type: '本週主打商品',
     },
     {
       id: 3,
-      src: './images/product-carousel3.png',
+      src: './images/product-carousel7.jpeg',
       content:
         ' 擁有更快速的處理器、更優秀的攝影技術、更長效的電池續航力以及更出色的顯示屏幕。選擇iPhone 14，體驗科技的極致力量！',
       type: '本週主打商品',
@@ -38,8 +38,8 @@ const Carousel = () => {
 
   const Swiper = styled(SwiperComponent)`
     width: 100%;
-    height: 60vh;
-    margin: 0 auto 1rem;
+    height: 30vh;
+    margin: 0 auto;
     & {
       .swiper-button-next:after {
         color: var(--deepBlue);
@@ -73,7 +73,7 @@ const Carousel = () => {
   const Image = styled.img`
     display: block;
     width: 100%;
-    height: 60vh;
+    height: 30vh;
     object-fit: cover;
     @media screen and (max-width: 576px) {
       height: 50vh;
@@ -82,7 +82,7 @@ const Carousel = () => {
 
   const Advertise = styled.div`
     width: 100%;
-    height: 60vh;
+    height: 30vh;
     background-color: rgba(0, 0, 0, 0.15);
     position: absolute;
     top: 0;

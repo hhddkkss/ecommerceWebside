@@ -7,9 +7,14 @@ const Container = styled.div`
 
 const Title = styled.h2`
   text-align: center;
-  font-size: 30px;
   margin-bottom: 0.5rem;
   color: var(--wordGray);
+  overflow: hidden;
+  transition: 0.3s ease-in;
+`
+
+const Text = styled.p`
+  font-size: 30px;
 `
 
 const Slogan = styled.p`
@@ -42,7 +47,9 @@ const PathItem = styled.li`
 const TitleAndPath = () => {
   return (
     <Container>
-      <Title>比比精選</Title>
+      <Title>
+        <Text>比比精選</Text>
+      </Title>
       <Slogan>
         We always <Logo>beE.</Logo> side you.
       </Slogan>

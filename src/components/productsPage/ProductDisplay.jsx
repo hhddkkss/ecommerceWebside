@@ -1,5 +1,14 @@
-import React from 'react'
+import React, { ReactComponent, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faHeart as FillFaHeart,
+  faCartShopping,
+} from '@fortawesome/free-solid-svg-icons'
+import { faHeart as FaHeart } from '@fortawesome/free-regular-svg-icons'
+// 要像CRA一樣把svg匯入成component 要在vite.config.js 中 使用 vite-plugin-svgr
+import { ReactComponent as CompareButtonBlue } from '../../assets/svg/CompareButtonBlue.svg'
+import { ReactComponent as CompareButtonYellow } from '../../assets/svg/CompareButtonYellow.svg'
 
 const ProductCards = styled.div`
   max-width: 1200px;
@@ -7,16 +16,42 @@ const ProductCards = styled.div`
   justify-content: space-between;
   margin: 0 auto;
   flex-wrap: wrap;
-  gap: 1rem;
+  @media (max-width: 767px) {
+    padding: 0 1rem;
+  }
 `
-//FIXME: 最後面的商品分成兩邊需要修正
+
 const ProductCard = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
-  /* flex-basis: 23%; */
-  flex-basis: 280px;
+  flex-basis: 230px;
   height: 300px;
+  position: relative;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  &:hover {
+    box-shadow: 1px 1px 10px #000;
+  }
+  &:hover > div {
+    opacity: 1;
+  }
+  @media (max-width: 767px) {
+    flex-basis: 100%;
+  }
+`
+const ProductCardMask = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: 0.25s ease-in;
+  @media (max-width: 767px) {
+    opacity: 1;
+    background-color: transparent;
+  }
 `
 
 const ProductTitle = styled.div`
@@ -24,8 +59,9 @@ const ProductTitle = styled.div`
   justify-content: center;
   align-items: center;
   background: var(--deepBlue);
-  min-height: 30px;
+  min-height: 20px;
   color: var(--textColorWhite);
+  font-size: 10px;
 `
 const ProductImageWrap = styled.div`
   min-width: 150px;
@@ -53,12 +89,54 @@ const ProductName = styled.div`
   -webkit-box-orient: vertical;
 `
 
-const ProductDisplay = ({ products }) => {
+const BottomMsg = styled.p`
+  width: 100%;
+  color: gray;
+  /* display: flex;
+  justify-content: center; */
+  text-align: center;
+  margin-bottom: 1rem;
+`
+
+const ProductDisplay = ({ productDisplay, noMoreProducts }) => {
   return (
     <ProductCards>
-      {products.map((product) => {
+      {productDisplay.map((product) => {
         return (
           <ProductCard key={product.product_id}>
+            <ProductCardMask>
+              {/* FIXME: 加入喜歡後 變成實心的愛心 */}
+              <FontAwesomeIcon
+                icon={FaHeart}
+                style={{
+                  color: 'var(--deepBlue)',
+                  position: 'absolute',
+                  top: '30px',
+                  right: '10px',
+                  cursor: 'pointer',
+                  fontSize: '20px',
+                }}
+              />
+              <FontAwesomeIcon
+                icon={faCartShopping}
+                style={{
+                  color: 'var(--deepBlue)',
+                  position: 'absolute',
+                  bottom: '70px',
+                  right: '10px',
+                  cursor: 'pointer',
+                  fontSize: '20px',
+                }}
+              />
+              <CompareButtonYellow
+                style={{
+                  position: 'absolute',
+                  bottom: '70px',
+                  left: '10px',
+                  cursor: 'pointer',
+                }}
+              ></CompareButtonYellow>
+            </ProductCardMask>
             <ProductTitle>BeE. Selected</ProductTitle>
             <ProductImageWrap>
               <ProductImage
@@ -69,6 +147,8 @@ const ProductDisplay = ({ products }) => {
           </ProductCard>
         )
       })}
+
+      {noMoreProducts && <BottomMsg>已經到底了，沒有更多商品了～～</BottomMsg>}
     </ProductCards>
   )
 }

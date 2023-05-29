@@ -6,6 +6,10 @@
   src: url('../public/font/17268978043080_jf-openhuninn-1.1.ttf');
   font-family: 'jf-openhuninn';
 }
+@font-face {
+  src: url('../public/font/Righteous-Regular.ttf');
+  font-family: 'Righteous';
+}
 
 :root {
   --textColorWhite: #d7d7d7;
@@ -15,6 +19,7 @@
   --deepYellow: #f3d775;
   --creamfont: creamfont;
   --jfopenhuninn: jf-openhuninn;
+  --Righteous: Righteous;
 }
 
 * {
