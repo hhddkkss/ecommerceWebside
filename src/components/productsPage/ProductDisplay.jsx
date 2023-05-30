@@ -69,7 +69,6 @@ const ProductImageWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: #b7b7b7; */
 `
 const ProductImage = styled.img`
   width: 120px;
@@ -89,21 +88,38 @@ const ProductName = styled.div`
   -webkit-box-orient: vertical;
 `
 
+const ProductPrice = styled.div`
+  position: absolute;
+  left: 50%;
+  bottom: 25%;
+  transform: translate(-50%);
+  font-size: 16px;
+  font-weight: 500;
+  &::after {
+    content: ' 元';
+  }
+`
+
 const BottomMsg = styled.p`
   width: 100%;
   color: gray;
-  /* display: flex;
-  justify-content: center; */
   text-align: center;
   margin-bottom: 1rem;
 `
 
-const ProductDisplay = ({ productDisplay, noMoreProducts }) => {
+const ProductDisplay = ({ products, noMoreProducts }) => {
   return (
     <ProductCards>
-      {productDisplay.map((product) => {
+      {products.map((product) => {
         return (
           <ProductCard key={product.product_id}>
+            <ProductPrice>
+              {(+product.product_price).toLocaleString('zh-TW', {
+                style: 'currency',
+                currency: 'NTD',
+                minimumFractionDigits: 0,
+              })}
+            </ProductPrice>
             <ProductCardMask>
               {/* FIXME: 加入喜歡後 變成實心的愛心 */}
               <FontAwesomeIcon

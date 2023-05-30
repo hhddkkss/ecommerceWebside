@@ -6,7 +6,12 @@ import {
   faArrowsUpDown,
 } from '@fortawesome/free-solid-svg-icons'
 
-const sortOption = ['上架時間:最新', '價格:由高到低', '價格:由低至高']
+const sortOption = [
+  '上架時間:最新',
+  '上架時間:最舊',
+  '價格:由高到低',
+  '價格:由低至高',
+]
 
 const Container = styled.div`
   max-width: 1200px;
@@ -85,14 +90,33 @@ const SortItemActive = styled(SortItem)`
   font-weight: 700;
 `
 
-const FunctionalBar = () => {
-  const [sortType, setSortType] = useState('上架時間:最新')
+const FunctionalBar = ({ setKeyWord, sortType, setSortType }) => {
+  const [userInput, setUserInput] = useState('')
+
+  const handleChangeInput = (e) => {
+    const { value } = e.target
+    setUserInput(value)
+  }
+
+  const handleSearchButton = () => {
+    setKeyWord(userInput)
+  }
+
+  const handleClick = (sortType) => {
+    setSortType(sortType)
+  }
+
   return (
     <Container>
       <UserInput>
-        <SearchKeyword></SearchKeyword>
-        <SearchButton>
-          搜尋
+        <SearchKeyword
+          placeholder="輸入要尋找的商品"
+          value={userInput}
+          onChange={(e) => handleChangeInput(e)}
+          onKeyUp={(e) => e.key === 'Enter' && handleSearchButton()}
+        ></SearchKeyword>
+        <SearchButton onClick={handleSearchButton}>
+          搜尋 {}
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </SearchButton>
       </UserInput>
@@ -105,7 +129,7 @@ const FunctionalBar = () => {
           return sortType === v ? (
             <SortItemActive key={i}>{v}</SortItemActive>
           ) : (
-            <SortItem key={i} onClick={() => setSortType(v)}>
+            <SortItem key={i} onClick={() => handleClick(v)}>
               {v}
             </SortItem>
           )
