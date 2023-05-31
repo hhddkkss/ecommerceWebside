@@ -28,6 +28,7 @@ const ProductBox = styled.div`
   &:active {
     box-shadow: 3px 3px 5px var(--wordGray);
     filter: drop-shadow(0 0 0.5rem var(--wordGray));
+    
   }
   &:hover > img {
     transform: scale(1.05);

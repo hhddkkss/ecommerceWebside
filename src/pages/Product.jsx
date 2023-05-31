@@ -6,31 +6,22 @@ import TitleAndPath from '../components/productsPage/TitleAndPath'
 import FunctionalBar from '../components/productsPage/FunctionalBar'
 import ProductDisplay from '../components/productsPage/ProductDisplay'
 import Marquee from '../components/productsPage/Marquee'
+import SideBar from '../components/productsPage/SideBar'
 import axios from 'axios'
-import { debounce } from '../utils/prodcutsHelper'
+import { debounce, sortProducts, searchProduct } from '../utils/prodcutsHelper'
+import styled from '@emotion/styled'
 
-//排序
-const sort = (arr, sortType) => {
-  switch (sortType) {
-    case '價格:由高到低':
-      return [...arr].sort((a, b) => b.product_price - a.product_price)
-    case '價格:由低至高':
-      return [...arr].sort((a, b) => a.product_price - b.product_price)
-    case '上架時間:最舊':
-      return [...arr].reverse()
-    default:
-      return [...arr]
+const Container = styled.div`
+  display: flex;
+  gap: 2rem;
+  @media screen and (max-width: 768px) {
+    gap: 1rem;
   }
-}
+`
 
-//搜尋
-const search = (arr, keyword) => {
-  const regex = new RegExp(keyword, 'gi')
-  return [...arr].filter((item) => item.product_name.match(regex))
-}
-//商品分類
-
-//品牌分類
+const ProductRight = styled.div`
+  margin: 0 auto;
+`
 
 const Product = () => {
   const [allProducts, setAllProducts] = useState([])
@@ -40,6 +31,9 @@ const Product = () => {
   const [loadMore, setLoadMore] = useState(false)
   const [keyWord, setKeyWord] = useState(' ')
   const [sortType, setSortType] = useState('上架時間:最新')
+  const [sideBarExtend, setSideBarExtend] = useState(false)
+  const [brand, setBrand] = useState('')
+  const [productType, setProductType] = useState('')
 
   const getProducts = async () => {
     try {
@@ -47,6 +41,13 @@ const Product = () => {
       setAllProducts(res.data)
     } catch (error) {
       throw new Error(`因為${error}加載商品資料失敗`)
+    }
+  }
+
+  const handleOutsideClick = (e) => {
+    // 按下sideBar以外的地方 就會收合
+    if (!e.target.closest('.sidebar-content') && sideBarExtend) {
+      setSideBarExtend(false)
     }
   }
 
@@ -77,8 +78,8 @@ const Product = () => {
   }, [loadMore])
 
   useEffect(() => {
-    let display = search(allProducts, keyWord)
-    display = sort(display, sortType)
+    let display = searchProduct(allProducts, keyWord)
+    display = sortProducts(display, sortType)
     setDisplayProducts(display)
   }, [allProducts, keyWord, sortType])
 
@@ -89,18 +90,22 @@ const Product = () => {
     <>
       <Carousel />
       <Marquee></Marquee>
-      <ProductTypeButton />
-      <BrandButton />
-      <TitleAndPath />
-      <FunctionalBar
-        setKeyWord={setKeyWord}
-        sortType={sortType}
-        setSortType={setSortType}
-      />
-      <ProductDisplay
-        products={products}
-        noMoreProducts={noMoreProducts}
-      ></ProductDisplay>
+      <Container onClick={(e) => handleOutsideClick(e)}>
+        <SideBar
+          sortType={sortType}
+          setSortType={setSortType}
+          sideBarExtend={sideBarExtend}
+          setSideBarExtend={setSideBarExtend}
+        ></SideBar>
+        <ProductRight>
+          <TitleAndPath />
+          <FunctionalBar setKeyWord={setKeyWord} />
+          <ProductDisplay
+            products={products}
+            noMoreProducts={noMoreProducts}
+          ></ProductDisplay>
+        </ProductRight>
+      </Container>
     </>
   )
 }

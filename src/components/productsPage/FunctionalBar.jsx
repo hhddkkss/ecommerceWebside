@@ -1,17 +1,7 @@
 import { useState } from 'react'
 import styled from '@emotion/styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faMagnifyingGlass,
-  faArrowsUpDown,
-} from '@fortawesome/free-solid-svg-icons'
-
-const sortOption = [
-  '上架時間:最新',
-  '上架時間:最舊',
-  '價格:由高到低',
-  '價格:由低至高',
-]
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 const Container = styled.div`
   max-width: 1200px;
@@ -67,30 +57,7 @@ const SearchButton = styled.button`
   }
 `
 
-const Wrap = styled.div`
-  display: flex;
-  align-items: flex-end;
-  gap: 1rem;
-`
-const Sort = styled.span`
-  font-weight: 700;
-  margin-right: 1rem;
-  color: var(--wordGray);
-`
-
-const SortItem = styled.a`
-  text-decoration: none;
-  cursor: pointer;
-  color: var(--wordGray);
-`
-
-// active 樣式
-const SortItemActive = styled(SortItem)`
-  color: var(--deepBlue);
-  font-weight: 700;
-`
-
-const FunctionalBar = ({ setKeyWord, sortType, setSortType }) => {
+const FunctionalBar = ({ setKeyWord }) => {
   const [userInput, setUserInput] = useState('')
 
   const handleChangeInput = (e) => {
@@ -100,10 +67,6 @@ const FunctionalBar = ({ setKeyWord, sortType, setSortType }) => {
 
   const handleSearchButton = () => {
     setKeyWord(userInput)
-  }
-
-  const handleClick = (sortType) => {
-    setSortType(sortType)
   }
 
   return (
@@ -120,21 +83,6 @@ const FunctionalBar = ({ setKeyWord, sortType, setSortType }) => {
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </SearchButton>
       </UserInput>
-      <Wrap>
-        <Sort>
-          排序
-          <FontAwesomeIcon icon={faArrowsUpDown} />
-        </Sort>
-        {sortOption.map((v, i) => {
-          return sortType === v ? (
-            <SortItemActive key={i}>{v}</SortItemActive>
-          ) : (
-            <SortItem key={i} onClick={() => handleClick(v)}>
-              {v}
-            </SortItem>
-          )
-        })}
-      </Wrap>
     </Container>
   )
 }

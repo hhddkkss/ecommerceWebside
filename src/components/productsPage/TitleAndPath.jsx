@@ -54,7 +54,7 @@ const TitleAndPath = () => {
         We always <Logo>beE.</Logo> side you.
       </Slogan>
       <Path>
-        <PathItem>產品分類</PathItem>
+        <PathItem>目前產品分類</PathItem>
         <PathItem>全部商品</PathItem>
         <PathItem>全部品牌</PathItem>
       </Path>

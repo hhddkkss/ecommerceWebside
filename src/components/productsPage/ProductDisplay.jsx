@@ -9,24 +9,17 @@ import { faHeart as FaHeart } from '@fortawesome/free-regular-svg-icons'
 // 要像CRA一樣把svg匯入成component 要在vite.config.js 中 使用 vite-plugin-svgr
 import { ReactComponent as CompareButtonBlue } from '../../assets/svg/CompareButtonBlue.svg'
 import { ReactComponent as CompareButtonYellow } from '../../assets/svg/CompareButtonYellow.svg'
+import Grid from '@mui/material/Grid'
 
 const ProductCards = styled.div`
   max-width: 1200px;
-  display: flex;
-  justify-content: space-between;
   margin: 0 auto;
-  flex-wrap: wrap;
-  @media (max-width: 767px) {
-    padding: 0 1rem;
-  }
 `
 
 const ProductCard = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
-  flex-basis: 230px;
-  height: 300px;
+  height: 100%;
   position: relative;
   border-left: 1px solid #000;
   border-right: 1px solid #000;
@@ -35,9 +28,6 @@ const ProductCard = styled.div`
   }
   &:hover > div {
     opacity: 1;
-  }
-  @media (max-width: 767px) {
-    flex-basis: 100%;
   }
 `
 const ProductCardMask = styled.div`
@@ -64,7 +54,7 @@ const ProductTitle = styled.div`
   font-size: 10px;
 `
 const ProductImageWrap = styled.div`
-  min-width: 150px;
+  min-height: 200px;
   flex-grow: 1;
   display: flex;
   justify-content: center;
@@ -89,6 +79,7 @@ const ProductName = styled.div`
 `
 
 const ProductPrice = styled.div`
+  min-width: 120px;
   position: absolute;
   left: 50%;
   bottom: 25%;
@@ -110,60 +101,71 @@ const BottomMsg = styled.p`
 const ProductDisplay = ({ products, noMoreProducts }) => {
   return (
     <ProductCards>
-      {products.map((product) => {
-        return (
-          <ProductCard key={product.product_id}>
-            <ProductPrice>
-              {(+product.product_price).toLocaleString('zh-TW', {
-                style: 'currency',
-                currency: 'NTD',
-                minimumFractionDigits: 0,
-              })}
-            </ProductPrice>
-            <ProductCardMask>
-              {/* FIXME: 加入喜歡後 變成實心的愛心 */}
-              <FontAwesomeIcon
-                icon={FaHeart}
-                style={{
-                  color: 'var(--deepBlue)',
-                  position: 'absolute',
-                  top: '30px',
-                  right: '10px',
-                  cursor: 'pointer',
-                  fontSize: '20px',
-                }}
-              />
-              <FontAwesomeIcon
-                icon={faCartShopping}
-                style={{
-                  color: 'var(--deepBlue)',
-                  position: 'absolute',
-                  bottom: '70px',
-                  right: '10px',
-                  cursor: 'pointer',
-                  fontSize: '20px',
-                }}
-              />
-              <CompareButtonYellow
-                style={{
-                  position: 'absolute',
-                  bottom: '70px',
-                  left: '10px',
-                  cursor: 'pointer',
-                }}
-              ></CompareButtonYellow>
-            </ProductCardMask>
-            <ProductTitle>BeE. Selected</ProductTitle>
-            <ProductImageWrap>
-              <ProductImage
-                src={'images/' + product.product_pic.split(',')[0]}
-              ></ProductImage>
-            </ProductImageWrap>
-            <ProductName>{product.product_name}</ProductName>
-          </ProductCard>
-        )
-      })}
-
+      <Grid container spacing={2} mb={2}>
+        {products.map((product) => {
+          return (
+            <Grid
+              item
+              key={product.product_id}
+              xs={12}
+              sm={6}
+              md={4}
+              lg={3}
+              xl={2.4}
+            >
+              <ProductCard>
+                <ProductPrice>
+                  {(+product.product_price).toLocaleString('zh-TW', {
+                    style: 'currency',
+                    currency: 'NTD',
+                    minimumFractionDigits: 0,
+                  })}
+                </ProductPrice>
+                <ProductCardMask>
+                  {/* FIXME: 加入喜歡後 變成實心的愛心 */}
+                  <FontAwesomeIcon
+                    icon={FaHeart}
+                    style={{
+                      color: 'var(--deepBlue)',
+                      position: 'absolute',
+                      top: '30px',
+                      right: '10px',
+                      cursor: 'pointer',
+                      fontSize: '20px',
+                    }}
+                  />
+                  <FontAwesomeIcon
+                    icon={faCartShopping}
+                    style={{
+                      color: 'var(--deepBlue)',
+                      position: 'absolute',
+                      bottom: '70px',
+                      right: '10px',
+                      cursor: 'pointer',
+                      fontSize: '20px',
+                    }}
+                  />
+                  <CompareButtonYellow
+                    style={{
+                      position: 'absolute',
+                      bottom: '70px',
+                      left: '10px',
+                      cursor: 'pointer',
+                    }}
+                  ></CompareButtonYellow>
+                </ProductCardMask>
+                <ProductTitle>BeE. Selected</ProductTitle>
+                <ProductImageWrap>
+                  <ProductImage
+                    src={'images/' + product.product_pic.split(',')[0]}
+                  ></ProductImage>
+                </ProductImageWrap>
+                <ProductName>{product.product_name}</ProductName>
+              </ProductCard>
+            </Grid>
+          )
+        })}
+      </Grid>
       {noMoreProducts && <BottomMsg>已經到底了，沒有更多商品了～～</BottomMsg>}
     </ProductCards>
   )
