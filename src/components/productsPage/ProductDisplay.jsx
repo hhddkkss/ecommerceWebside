@@ -1,18 +1,16 @@
 import styled from '@emotion/styled'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faHeart as FillFaHeart,
-  faCartShopping,
-} from '@fortawesome/free-solid-svg-icons'
-import { faHeart as FaHeart } from '@fortawesome/free-regular-svg-icons'
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined'
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 // 要像CRA一樣把svg匯入成component 要在vite.config.js 中 使用 vite-plugin-svgr
 import { ReactComponent as CompareButtonBlue } from '../../assets/svg/CompareButtonBlue.svg'
 import { ReactComponent as CompareButtonYellow } from '../../assets/svg/CompareButtonYellow.svg'
 import Grid from '@mui/material/Grid'
+import { Box } from '@mui/material'
 
-const ProductCards = styled.div`
-  width: 1200px;
-  margin: 0 auto;
+const ProductCards = styled(Box)`
+  max-width: 1200px;
   filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
 `
 
@@ -123,8 +121,7 @@ const ProductDisplay = ({ products, noMoreProducts, sideBarExtend }) => {
                 </ProductPrice>
                 <ProductCardMask>
                   {/* FIXME: 加入喜歡後 變成實心的愛心 */}
-                  <FontAwesomeIcon
-                    icon={FaHeart}
+                  <FavoriteBorderOutlinedIcon
                     style={{
                       color: 'var(--deepBlue)',
                       position: 'absolute',
@@ -134,8 +131,7 @@ const ProductDisplay = ({ products, noMoreProducts, sideBarExtend }) => {
                       fontSize: '20px',
                     }}
                   />
-                  <FontAwesomeIcon
-                    icon={faCartShopping}
+                  <ShoppingCartOutlinedIcon
                     style={{
                       color: 'var(--deepBlue)',
                       position: 'absolute',

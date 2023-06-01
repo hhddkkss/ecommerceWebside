@@ -7,7 +7,8 @@ import FunctionalBar from '../components/productsPage/FunctionalBar'
 import ProductDisplay from '../components/productsPage/ProductDisplay'
 import Marquee from '../components/productsPage/Marquee'
 import SideBar from '../components/productsPage/SideBar'
-import axios from 'axios'
+import NavBar from '../components//global/NavBar'
+import { Box } from '@mui/material'
 import {
   debounce,
   sortProducts,
@@ -17,8 +18,6 @@ import {
   fetchProducts,
 } from '../utils/prodcutsHelper'
 import styled from '@emotion/styled'
-
-
 
 const Container = styled.div`
   display: flex;
@@ -112,10 +111,11 @@ const Product = () => {
   }, [brand])
 
   return (
-    <>
+    <Box onClick={(e) => handleOutsideClick(e)}>
+      <NavBar />
       <Carousel sideBarExtend={sideBarExtend} />
       <Marquee sideBarExtend={sideBarExtend}></Marquee>
-      <Container onClick={(e) => handleOutsideClick(e)}>
+      <Container>
         <SideBar
           sortType={sortType}
           setSortType={setSortType}
@@ -141,7 +141,7 @@ const Product = () => {
           ></ProductDisplay>
         </ProductRight>
       </Container>
-    </>
+    </Box>
   )
 }
 

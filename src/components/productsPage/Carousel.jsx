@@ -37,8 +37,9 @@ const imgData = [
 const Swiper = styled(SwiperComponent)`
   filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
   width: 100%;
-  height: 30vh;
+  height: 40vh;
   margin: 0 auto;
+
   & {
     .swiper-button-next:after {
       color: var(--deepBlue);
@@ -72,7 +73,7 @@ const SwiperSlide = styled(SwiperSlideComponent)`
 const Image = styled.img`
   display: block;
   width: 100%;
-  height: 30vh;
+  height: 40vh;
   object-fit: cover;
   @media screen and (max-width: 576px) {
     height: 50vh;
@@ -81,7 +82,7 @@ const Image = styled.img`
 
 const Advertise = styled.div`
   width: 100%;
-  height: 30vh;
+  height: 40vh;
   background-color: rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
@@ -106,7 +107,7 @@ const AdvertiseText = styled.div`
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
-    top: 50px;
+    bottom: 50px;
     left: 50px;
   }
 `
