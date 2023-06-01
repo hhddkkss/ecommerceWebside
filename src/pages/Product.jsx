@@ -8,8 +8,17 @@ import ProductDisplay from '../components/productsPage/ProductDisplay'
 import Marquee from '../components/productsPage/Marquee'
 import SideBar from '../components/productsPage/SideBar'
 import axios from 'axios'
-import { debounce, sortProducts, searchProduct } from '../utils/prodcutsHelper'
+import {
+  debounce,
+  sortProducts,
+  searchProduct,
+  filterProductByProductType,
+  filterProductByBrand,
+  fetchProducts,
+} from '../utils/prodcutsHelper'
 import styled from '@emotion/styled'
+
+
 
 const Container = styled.div`
   display: flex;
@@ -32,17 +41,15 @@ const Product = () => {
   const [keyWord, setKeyWord] = useState(' ')
   const [sortType, setSortType] = useState('上架時間:最新')
   const [sideBarExtend, setSideBarExtend] = useState(false)
-  const [brand, setBrand] = useState('')
-  const [productType, setProductType] = useState('')
+  const [brand, setBrand] = useState('全部品牌')
+  const [productType, setProductType] = useState(0)
 
-  const getProducts = async () => {
-    try {
-      const res = await axios.get('http://localhost:3003/products/pd_api')
-      setAllProducts(res.data)
-    } catch (error) {
-      throw new Error(`因為${error}加載商品資料失敗`)
-    }
-  }
+  const getMyProduct = () =>
+    fetchProducts()
+      .then((res) => setAllProducts(res))
+      .catch((e) => {
+        throw new Error(e)
+      })
 
   const handleOutsideClick = (e) => {
     // 按下sideBar以外的地方 就會收合
@@ -52,18 +59,17 @@ const Product = () => {
   }
 
   useEffect(() => {
-    getProducts()
+    getMyProduct()
   }, [])
 
   //第二步  scrollTop + clientHeight = scrollHeight (現在頁面的高度)
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement
 
-    if (scrollTop + clientHeight >= scrollHeight - 200) {
+    if (scrollTop + clientHeight >= scrollHeight - 300) {
       setLoadMore(true)
     }
   }
-
   //第三步 使用useEffect 偵聽scroll事件
   useEffect(() => {
     window.addEventListener('scroll', debounce(handleScroll))
@@ -78,31 +84,60 @@ const Product = () => {
   }, [loadMore])
 
   useEffect(() => {
+    //關鍵字篩選
     let display = searchProduct(allProducts, keyWord)
+    //商品排序
     display = sortProducts(display, sortType)
+    //商品類別篩選
+    display = filterProductByProductType(display, productType)
+    //品牌篩選
+    display = filterProductByBrand(display, brand)
     setDisplayProducts(display)
-  }, [allProducts, keyWord, sortType])
+  }, [allProducts, keyWord, sortType, productType, brand])
 
   const products = displayProducts.slice(0, visibleProductsAmount)
   const noMoreProducts = visibleProductsAmount > displayProducts.length
 
+  //產品類別變更：品牌變為全部 關鍵字重置 顯示商品數重置
+  useEffect(() => {
+    setBrand('全部品牌')
+    setKeyWord('')
+    setVisibleProductsAmount(25)
+  }, [productType])
+
+  //品牌變更：關鍵字重置 顯示商品數重置
+  useEffect(() => {
+    setKeyWord('')
+    setVisibleProductsAmount(25)
+  }, [brand])
+
   return (
     <>
-      <Carousel />
-      <Marquee></Marquee>
+      <Carousel sideBarExtend={sideBarExtend} />
+      <Marquee sideBarExtend={sideBarExtend}></Marquee>
       <Container onClick={(e) => handleOutsideClick(e)}>
         <SideBar
           sortType={sortType}
           setSortType={setSortType}
           sideBarExtend={sideBarExtend}
           setSideBarExtend={setSideBarExtend}
+          setBrand={setBrand}
+          setProductType={setProductType}
         ></SideBar>
         <ProductRight>
-          <TitleAndPath />
-          <FunctionalBar setKeyWord={setKeyWord} />
+          <TitleAndPath
+            sideBarExtend={sideBarExtend}
+            brand={brand}
+            productType={productType}
+          />
+          <FunctionalBar
+            setKeyWord={setKeyWord}
+            sideBarExtend={sideBarExtend}
+          />
           <ProductDisplay
             products={products}
             noMoreProducts={noMoreProducts}
+            sideBarExtend={sideBarExtend}
           ></ProductDisplay>
         </ProductRight>
       </Container>

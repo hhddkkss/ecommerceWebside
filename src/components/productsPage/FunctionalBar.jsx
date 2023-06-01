@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 const Container = styled.div`
+  filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
   max-width: 1200px;
   margin: 0 auto 2rem;
   display: flex;
@@ -57,7 +58,7 @@ const SearchButton = styled.button`
   }
 `
 
-const FunctionalBar = ({ setKeyWord }) => {
+const FunctionalBar = ({ setKeyWord,sideBarExtend }) => {
   const [userInput, setUserInput] = useState('')
 
   const handleChangeInput = (e) => {
@@ -70,7 +71,7 @@ const FunctionalBar = ({ setKeyWord }) => {
   }
 
   return (
-    <Container>
+    <Container sideBarExtend={sideBarExtend}>
       <UserInput>
         <SearchKeyword
           placeholder="輸入要尋找的商品"

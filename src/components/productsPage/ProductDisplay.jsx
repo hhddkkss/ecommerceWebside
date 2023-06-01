@@ -1,4 +1,3 @@
-import React, { ReactComponent, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -12,8 +11,9 @@ import { ReactComponent as CompareButtonYellow } from '../../assets/svg/CompareB
 import Grid from '@mui/material/Grid'
 
 const ProductCards = styled.div`
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
+  filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
 `
 
 const ProductCard = styled.div`
@@ -98,9 +98,9 @@ const BottomMsg = styled.p`
   margin-bottom: 1rem;
 `
 
-const ProductDisplay = ({ products, noMoreProducts }) => {
+const ProductDisplay = ({ products, noMoreProducts, sideBarExtend }) => {
   return (
-    <ProductCards>
+    <ProductCards sideBarExtend={sideBarExtend}>
       <Grid container spacing={2} mb={2}>
         {products.map((product) => {
           return (

@@ -10,128 +10,128 @@ import 'swiper/css/pagination'
 // import required modules
 import { Navigation, Pagination, Autoplay } from 'swiper'
 import styled from '@emotion/styled'
+const imgData = [
+  {
+    id: 1,
+    src: './images/product-carousel9.jpeg',
+    content:
+      '擁有優秀的攝影系統、高效能的處理器、長效的電池續航力以及快速的5G 上網速度。選擇 iPhone 13，讓您的生活更輕鬆、更便捷！',
+    type: '本週主打商品',
+  },
+  {
+    id: 2,
+    src: './images/product-carousel6.jpeg',
+    content:
+      ' 您是否在尋找一款功能強大、操作簡單且攜帶方便的平板電腦呢？我們的平板電腦擁有先進的處理器、高清的顯示屏幕、長效的電池續航力以及輕便的設計，讓您隨時隨地輕鬆應對工作、娛樂等多種場合。選擇我們的平板電腦，讓您輕鬆享受多重便利！',
+    type: '本週主打商品',
+  },
+  {
+    id: 3,
+    src: './images/product-carousel7.jpeg',
+    content:
+      ' 擁有更快速的處理器、更優秀的攝影技術、更長效的電池續航力以及更出色的顯示屏幕。選擇iPhone 14，體驗科技的極致力量！',
+    type: '本週主打商品',
+  },
+]
 
-const Carousel = () => {
-  const imgData = [
-    {
-      id: 1,
-      src: './images/product-carousel9.jpeg',
-      content:
-        '擁有優秀的攝影系統、高效能的處理器、長效的電池續航力以及快速的5G 上網速度。選擇 iPhone 13，讓您的生活更輕鬆、更便捷！',
-      type: '本週主打商品',
-    },
-    {
-      id: 2,
-      src: './images/product-carousel6.jpeg',
-      content:
-        ' 您是否在尋找一款功能強大、操作簡單且攜帶方便的平板電腦呢？我們的平板電腦擁有先進的處理器、高清的顯示屏幕、長效的電池續航力以及輕便的設計，讓您隨時隨地輕鬆應對工作、娛樂等多種場合。選擇我們的平板電腦，讓您輕鬆享受多重便利！',
-      type: '本週主打商品',
-    },
-    {
-      id: 3,
-      src: './images/product-carousel7.jpeg',
-      content:
-        ' 擁有更快速的處理器、更優秀的攝影技術、更長效的電池續航力以及更出色的顯示屏幕。選擇iPhone 14，體驗科技的極致力量！',
-      type: '本週主打商品',
-    },
-  ]
-
-  const Swiper = styled(SwiperComponent)`
-    width: 100%;
-    height: 30vh;
-    margin: 0 auto;
-    & {
+const Swiper = styled(SwiperComponent)`
+  filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
+  width: 100%;
+  height: 30vh;
+  margin: 0 auto;
+  & {
+    .swiper-button-next:after {
+      color: var(--deepBlue);
+    }
+    .swiper-button-prev:after {
+      color: var(--deepBlue);
+    }
+    .swiper-pagination-bullet-active {
+      background-color: #233a66 !important;
+    }
+    @media screen and (max-width: 576px) {
+      height: 50vh;
       .swiper-button-next:after {
-        color: var(--deepBlue);
+        display: none;
       }
       .swiper-button-prev:after {
-        color: var(--deepBlue);
-      }
-      .swiper-pagination-bullet-active {
-        background-color: #233a66 !important;
-      }
-      @media screen and (max-width: 576px) {
-        height: 50vh;
-        .swiper-button-next:after {
-          display: none;
-        }
-        .swiper-button-prev:after {
-          display: none;
-        }
+        display: none;
       }
     }
-  `
+  }
+`
 
-  const SwiperSlide = styled(SwiperSlideComponent)`
-    text-align: center;
-    background: #fff;
+const SwiperSlide = styled(SwiperSlideComponent)`
+  text-align: center;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const Image = styled.img`
+  display: block;
+  width: 100%;
+  height: 30vh;
+  object-fit: cover;
+  @media screen and (max-width: 576px) {
+    height: 50vh;
+  }
+`
+
+const Advertise = styled.div`
+  width: 100%;
+  height: 30vh;
+  background-color: rgba(0, 0, 0, 0.15);
+  position: absolute;
+  top: 0;
+  font-family: var(--creamfont);
+  @media screen and (max-width: 576px) {
+    height: 50vh;
+  }
+`
+
+const AdvertiseText = styled.div`
+  width: 250px;
+  position: absolute;
+  bottom: 10%;
+  left: 8%;
+  letter-spacing: 0.05rem;
+  background-color: #d7d7d74e;
+  padding: 1rem;
+  border-radius: 5px;
+  @media screen and (max-width: 576px) {
+    width: 40px;
+    height: fit-content;
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
-    align-items: center;
-  `
-
-  const Image = styled.img`
-    display: block;
-    width: 100%;
-    height: 30vh;
-    object-fit: cover;
-    @media screen and (max-width: 576px) {
-      height: 50vh;
-    }
-  `
-
-  const Advertise = styled.div`
-    width: 100%;
-    height: 30vh;
-    background-color: rgba(0, 0, 0, 0.15);
-    position: absolute;
-    top: 0;
-    font-family: var(--creamfont);
-    @media screen and (max-width: 576px) {
-      height: 50vh;
-    }
-  `
-
-  const AdvertiseText = styled.div`
-    width: 250px;
-    position: absolute;
-    bottom: 10%;
-    left: 8%;
-    letter-spacing: 0.05rem;
-    background-color: #d7d7d74e;
-    padding: 1rem;
-    border-radius: 5px;
-    @media screen and (max-width: 576px) {
-      width: 40px;
-      height: fit-content;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      top: 50px;
-      left: 50px;
-    }
-  `
-  const AdvertiseTextH2 = styled.h2`
-    color: var(--deepBlue);
-    margin-bottom: 1rem;
+    top: 50px;
+    left: 50px;
+  }
+`
+const AdvertiseTextH2 = styled.h2`
+  color: var(--deepBlue);
+  margin-bottom: 1rem;
+  text-align: center;
+  @media screen and (max-width: 576px) {
+    color: var(--textColorWhite);
     text-align: center;
-    @media screen and (max-width: 576px) {
-      color: var(--textColorWhite);
-      text-align: center;
-      font-size: 20px;
-    }
-  `
+    font-size: 20px;
+  }
+`
 
-  const AdvertiseTextP = styled.p`
-    color: var(--deepBlue);
-    color: #fff;
-    @media screen and (max-width: 576px) {
-      display: none;
-    }
-  `
-
+const AdvertiseTextP = styled.p`
+  color: var(--deepBlue);
+  color: #fff;
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
+`
+const Carousel = ({ sideBarExtend }) => {
   return (
     <Swiper
+      sideBarExtend={sideBarExtend}
       pagination={{
         dynamicBullets: true, // 動態的pagination
       }}

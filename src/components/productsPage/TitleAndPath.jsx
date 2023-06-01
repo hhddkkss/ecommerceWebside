@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 
 const Container = styled.div`
+  filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
   max-width: 1200px;
   margin: 0 auto 1rem;
 `
@@ -44,9 +45,22 @@ const PathItem = styled.li`
   }
 `
 
-const TitleAndPath = () => {
+function productTypeNumToWord(productType) {
+  switch (productType) {
+    case 0:
+      return '全部商品'
+    case 1:
+      return '手機'
+    case 2:
+      return '平板'
+    case 3:
+      return '耳機'
+  }
+}
+
+const TitleAndPath = ({ sideBarExtend, brand, productType }) => {
   return (
-    <Container>
+    <Container sideBarExtend={sideBarExtend}>
       <Title>
         <Text>比比精選</Text>
       </Title>
@@ -55,8 +69,8 @@ const TitleAndPath = () => {
       </Slogan>
       <Path>
         <PathItem>目前產品分類</PathItem>
-        <PathItem>全部商品</PathItem>
-        <PathItem>全部品牌</PathItem>
+        <PathItem>{productTypeNumToWord(productType)}</PathItem>
+        <PathItem>{brand}</PathItem>
       </Path>
     </Container>
   )

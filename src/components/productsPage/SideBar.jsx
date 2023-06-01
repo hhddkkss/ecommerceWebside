@@ -33,6 +33,7 @@ const SideBarButton = styled.button`
   color: var(--deepBlue);
   font-size: 16px;
   padding: 2px;
+  z-index: 10;
 `
 
 const Container = styled.div`
@@ -102,6 +103,8 @@ const SideBar = ({
   setSortType,
   sideBarExtend,
   setSideBarExtend,
+  setBrand,
+  setProductType,
 }) => {
   const handleClick = (sortType) => {
     setSortType(sortType)
@@ -109,6 +112,14 @@ const SideBar = ({
 
   const toggleSideBar = () => {
     setSideBarExtend(!sideBarExtend)
+  }
+
+  const handleProductTypeChange = (productType) => {
+    setProductType(productType)
+  }
+
+  const handleBrandChange = (brand) => {
+    setBrand(brand)
   }
 
   return (
@@ -130,14 +141,21 @@ const SideBar = ({
         <List>
           <ListTitle>商品類別 -</ListTitle>
           {ProductTypeOption.map((item, index) => (
-            <ListItem key={index}>{item}</ListItem>
+            <ListItem
+              key={index}
+              onClick={() => handleProductTypeChange(index)}
+            >
+              {item}
+            </ListItem>
           ))}
         </List>
 
         <List>
           <ListTitle>品牌類別 -</ListTitle>
           {brandOption.map((item, index) => (
-            <ListItem key={index}>{item}</ListItem>
+            <ListItem key={index} onClick={() => handleBrandChange(item)}>
+              {item}
+            </ListItem>
           ))}
         </List>
       </Container>

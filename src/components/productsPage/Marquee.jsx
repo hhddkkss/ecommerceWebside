@@ -3,39 +3,49 @@ import {
   Swiper as SwiperComponent,
   SwiperSlide as SwiperSlideComponent,
 } from 'swiper/react'
-// Import Swiper styles
 import 'swiper/css'
-// import required modules
 import { Autoplay } from 'swiper'
 import styled from '@emotion/styled'
 
+const marqueeWord = [
+  'Fast Delivery',
+  'More Than 30+ KOL Recommendation',
+  'Excellent Quality',
+  '1.5 Years Product Guarantee',
+]
+
 const Swiper = styled(SwiperComponent)`
+  filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
   background: #3c3c3c;
   height: 30px;
   margin-bottom: 1rem;
 `
 const SwiperSlide = styled(SwiperSlideComponent)`
   color: #fff;
+  letter-spacing: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.5rem 0;
+  user-select: none;
   font-family: var(--Righteous);
 `
 
-const Marquee = () => {
+const Marquee = ({ sideBarExtend }) => {
   return (
     <Swiper
+      sideBarExtend={sideBarExtend}
       autoplay={{
         delay: 5000,
         disableOnInteraction: false,
       }}
       loop={true}
       modules={[Autoplay]}
+      allowTouchMove={false}
     >
-      <SwiperSlide>Fast Delivery </SwiperSlide>
-      <SwiperSlide>More Than 3000+ Customers</SwiperSlide>
-      <SwiperSlide>Good Quality</SwiperSlide>
+      {marqueeWord.map((v, i) => (
+        <SwiperSlide key={i}>{v} </SwiperSlide>
+      ))}
     </Swiper>
   )
 }
