@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react'
 import Carousel from '../components/productsPage/Carousel'
-import ProductTypeButton from '../components/productsPage/ProductTypeButton'
-import BrandButton from '../components/productsPage/BrandButton'
 import TitleAndPath from '../components/productsPage/TitleAndPath'
 import FunctionalBar from '../components/productsPage/FunctionalBar'
 import ProductDisplay from '../components/productsPage/ProductDisplay'
 import Marquee from '../components/productsPage/Marquee'
 import SideBar from '../components/productsPage/SideBar'
-import NavBar from '../components//global/NavBar'
 import { Box } from '@mui/material'
 import {
   debounce,
@@ -112,18 +109,17 @@ const Product = () => {
 
   return (
     <Box onClick={(e) => handleOutsideClick(e)}>
-      <NavBar />
       <Carousel sideBarExtend={sideBarExtend} />
-      <Marquee sideBarExtend={sideBarExtend}></Marquee>
+      <Marquee sideBarExtend={sideBarExtend}></Marquee>{' '}
+      <SideBar
+        sortType={sortType}
+        setSortType={setSortType}
+        sideBarExtend={sideBarExtend}
+        setSideBarExtend={setSideBarExtend}
+        setBrand={setBrand}
+        setProductType={setProductType}
+      ></SideBar>
       <Container>
-        <SideBar
-          sortType={sortType}
-          setSortType={setSortType}
-          sideBarExtend={sideBarExtend}
-          setSideBarExtend={setSideBarExtend}
-          setBrand={setBrand}
-          setProductType={setProductType}
-        ></SideBar>
         <ProductRight>
           <TitleAndPath
             sideBarExtend={sideBarExtend}

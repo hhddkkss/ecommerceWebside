@@ -36,6 +36,7 @@ const ProductCardMask = styled.div`
   background-color: rgba(0, 0, 0, 0.25);
   opacity: 0;
   transition: 0.25s ease-in;
+  z-index: 3;
   @media (max-width: 767px) {
     opacity: 1;
     background-color: transparent;
@@ -153,7 +154,7 @@ const ProductDisplay = ({ products, noMoreProducts, sideBarExtend }) => {
                 <ProductTitle>BeE. Selected</ProductTitle>
                 <ProductImageWrap>
                   <ProductImage
-                    src={'images/' + product.product_pic.split(',')[0]}
+                    src={'/images/' + product.product_pic.split(',')[0]}
                   ></ProductImage>
                 </ProductImageWrap>
                 <ProductName>{product.product_name}</ProductName>

@@ -11,8 +11,22 @@ import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import { Link as LinkComponent } from 'react-router-dom'
+import styled from '@emotion/styled'
 
 const pages = ['比比精選', '比比論壇', '比比會員', '比比活動']
+
+const path = {
+  比比精選: '/bee/product',
+  比比論壇: '/bee/article',
+  比比會員: '/bee/member',
+  比比活動: '/bee/activities',
+}
+
+const Link = styled(LinkComponent)`
+  text-decoration: none;
+  color: #000;
+`
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null)
@@ -36,9 +50,9 @@ function NavBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/bee/home"
             sx={{
-              mr: 2,
+              mr: 5,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -64,6 +78,7 @@ function NavBar() {
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
+              // 控制Menu出現的位置
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
@@ -80,8 +95,10 @@ function NavBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem onClick={handleCloseNavMenu} key={page}>
+                  <Typography textAlign="center">
+                    <Link to={path[page]}>{page}</Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -106,13 +123,14 @@ function NavBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+              <Link to={path[page]} key={page}>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ mr: 5, my: 2, color: 'white', display: 'block' }}
+                >
+                  {page}
+                </Button>
+              </Link>
             ))}
           </Box>
 
