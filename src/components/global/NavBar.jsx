@@ -9,7 +9,6 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
-import AdbIcon from '@mui/icons-material/Adb'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { Link as LinkComponent } from 'react-router-dom'
 import styled from '@emotion/styled'
@@ -107,7 +106,7 @@ function NavBar() {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/bee/home"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },

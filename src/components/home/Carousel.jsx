@@ -35,7 +35,6 @@ const imgData = [
 ]
 
 const Swiper = styled(SwiperComponent)`
-  filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
   width: 100%;
   height: 40vh;
   margin: 0 auto;
@@ -129,12 +128,11 @@ const AdvertiseTextP = styled.p`
     display: none;
   }
 `
-const Carousel = ({ sideBarExtend }) => {
+const Carousel = () => {
   return (
     <Swiper
-      sideBarExtend={sideBarExtend}
       pagination={{
-        dynamicBullets: true, // 動態的pagination
+        dynamicBullets: false, // 動態的pagination
       }}
       autoplay={{
         delay: 2500,

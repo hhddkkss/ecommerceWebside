@@ -79,6 +79,8 @@ const ProductName = styled.div`
 
 const ProductPrice = styled.div`
   min-width: 120px;
+  width: 100%;
+  text-align: center;
   position: absolute;
   left: 50%;
   bottom: 25%;

@@ -6,22 +6,22 @@ import {
 import 'swiper/css'
 import { Autoplay } from 'swiper'
 import styled from '@emotion/styled'
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
+import StarIcon from '@mui/icons-material/Star'
 
 const marqueeWord = [
   'Fast Delivery',
-  'More Than 30+ KOL Recommendation',
+  'More Than 3k+  User',
   'Excellent Quality',
   '1.5 Years Product Guarantee',
 ]
 
 const Swiper = styled(SwiperComponent)`
-  filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
-  background: #3c3c3c;
+  /* background: #d9d6cf; */
   height: 30px;
-  margin-bottom: 1rem;
 `
 const SwiperSlide = styled(SwiperSlideComponent)`
-  color: #fff;
+  color: var(--deepBlue);
   letter-spacing: 2px;
   display: flex;
   align-items: center;
@@ -31,10 +31,9 @@ const SwiperSlide = styled(SwiperSlideComponent)`
   font-family: var(--Righteous);
 `
 
-const Marquee = ({ sideBarExtend }) => {
+const Marquee = () => {
   return (
     <Swiper
-      sideBarExtend={sideBarExtend}
       autoplay={{
         delay: 5000,
         disableOnInteraction: false,
@@ -44,7 +43,11 @@ const Marquee = ({ sideBarExtend }) => {
       allowTouchMove={false}
     >
       {marqueeWord.map((v, i) => (
-        <SwiperSlide key={i}>{v} </SwiperSlide>
+        <SwiperSlide key={i}>
+          <StarIcon sx={{ mr: '0.5rem' }}></StarIcon>
+          {v}
+          <ThumbUpAltIcon sx={{ ml: '0.5rem' }}></ThumbUpAltIcon>
+        </SwiperSlide>
       ))}
     </Swiper>
   )

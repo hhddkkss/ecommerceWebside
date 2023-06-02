@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import Carousel from '../components/productsPage/Carousel'
+import Carousel from '../components/home/Carousel'
 import TitleAndPath from '../components/productsPage/TitleAndPath'
 import FunctionalBar from '../components/productsPage/FunctionalBar'
 import ProductDisplay from '../components/productsPage/ProductDisplay'
-import Marquee from '../components/productsPage/Marquee'
+import Marquee from '../components/home/Marquee'
 import SideBar from '../components/productsPage/SideBar'
 import { Box } from '@mui/material'
 import {
@@ -109,8 +109,8 @@ const Product = () => {
 
   return (
     <Box onClick={(e) => handleOutsideClick(e)}>
-      <Carousel sideBarExtend={sideBarExtend} />
-      <Marquee sideBarExtend={sideBarExtend}></Marquee>{' '}
+      {/* <Carousel sideBarExtend={sideBarExtend} />
+      <Marquee sideBarExtend={sideBarExtend}></Marquee> */}
       <SideBar
         sortType={sortType}
         setSortType={setSortType}
