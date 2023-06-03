@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react'
-import Carousel from '../components/home/Carousel'
 import TitleAndPath from '../components/productsPage/TitleAndPath'
 import FunctionalBar from '../components/productsPage/FunctionalBar'
 import ProductDisplay from '../components/productsPage/ProductDisplay'
-import Marquee from '../components/home/Marquee'
 import SideBar from '../components/productsPage/SideBar'
 import { Box } from '@mui/material'
 import {
-  debounce,
   sortProducts,
   searchProduct,
   filterProductByProductType,
   filterProductByBrand,
   fetchProducts,
 } from '../utils/prodcutsHelper'
+import { debounce } from '../utils/globalHelper'
+
 import styled from '@emotion/styled'
 
 const Container = styled.div`
