@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { Box } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { debounce } from '../../utils/globalHelper'
 
 const Container = styled.div`
   background: #f8f7f4;
@@ -29,6 +30,7 @@ const Right = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   @media screen and (max-width: 1000px) {
     flex-wrap: wrap;
     flex-direction: column;
@@ -54,10 +56,40 @@ const Slogan = styled.p`
   }
 `
 
-const Content = styled.p`
-  width: 300px;
+const ContentLeft = styled.p`
+  width: 250px;
+  align-self: flex-end;
+  font-size: 20px;
+  color: var(--deepBlue);
+  font-weight: 700;
+  /*  移動到 (130px, -60px) */
+  /* transform: translate(130px, 100%); */
+  transform: ${({ contentMove }) =>
+    contentMove ? 'translate(130px, -60px)' : 'translate(130px, 100%)'};
+
+  transition: all 0.8s ease-in-out;
   @media screen and (max-width: 1000px) {
-    padding-left: 1rem;
+    transform: translate(0, 0);
+    align-self: center;
+    margin-bottom: 1rem;
+  }
+`
+
+const ContentRight = styled.p`
+  width: 250px;
+  align-self: flex-start;
+  font-size: 20px;
+  color: var(--deepBlue);
+  font-weight: 700;
+  /* 移動到 (-200px , 70px) */
+  /* transform: translate(-200px, -100%); */
+  transform: ${({ contentMove }) =>
+    contentMove ? 'translate(-200px , 70px)' : 'translate(-200px, -100%)'};
+  transition: all 0.8s ease-in-out;
+  @media screen and (max-width: 1000px) {
+    transform: translate(0, 0);
+    align-self: center;
+    margin-bottom: 1rem;
   }
 `
 
@@ -87,21 +119,52 @@ const ImageRight = styled.img`
 `
 
 const Introduce = () => {
+  const introduceRef = useRef(null)
+
+  const [contentMove, setContentMove] = useState(false)
+
+  const handleScroll = () => {
+    const { scrollTop, clientHeight } = document.documentElement
+    const introduceDistance = introduceRef.current.offsetTop
+    console.log(111)
+    if (scrollTop > introduceDistance / 4) {
+      setContentMove(true)
+    }
+  }
+
+  useEffect(() => {
+    const handleScrollDebounce = debounce(handleScroll)
+
+    if (!contentMove) {
+      window.addEventListener('scroll', handleScrollDebounce)
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollDebounce)
+    }
+  }, [contentMove])
+
   return (
-    <Container>
+    <Container ref={introduceRef}>
       <Left>
         <Box>
           <Title>Bee a Choice!</Title>
           <Slogan>科技生活，</Slogan>
           <Slogan>科技選物。</Slogan>
-          <Content>
+          {/* <Content>
             我們是一個希望讓所有人更方便挑選到適合自己商品的3C電商,帶給大家有質感的商品。
-          </Content>
+          </Content> */}
         </Box>
       </Left>
       <Right>
+        <ContentLeft contentMove={contentMove}>
+          我們在乎每一位客人， 在乎每一個想法。
+        </ContentLeft>
         <ImageLeft src="/public/images/home/introduce1.jpg"></ImageLeft>
         <ImageRight src="/public/images/home/introduce2.jpg"></ImageRight>
+        <ContentRight contentMove={contentMove}>
+          我們只想給您最好的， 相信您的選擇， 最好的都在BEEbeE。
+        </ContentRight>
       </Right>
     </Container>
   )
