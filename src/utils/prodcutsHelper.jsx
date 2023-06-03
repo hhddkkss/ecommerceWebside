@@ -1,18 +1,5 @@
 import axios from 'axios'
 
-export function debounce(func, delay = 250) {
-  let timer = null
-
-  return function (...args) {
-    let context = this
-
-    clearTimeout(timer)
-    timer = setTimeout(() => {
-      func.apply(context, args)
-    }, delay)
-  }
-}
-
 //排序
 export const sortProducts = (arr, sortType) => {
   switch (sortType) {
