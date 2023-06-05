@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { LocalMall } from '@mui/icons-material'
 import { Box, Button } from '@mui/material'
 import React from 'react'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Container = styled(Box)`
   position: relative;
@@ -37,6 +37,7 @@ const Text = styled.p`
 `
 
 const Banner = () => {
+  const navigate = useNavigate()
   return (
     <Container>
       <TextContainer>
@@ -49,7 +50,9 @@ const Banner = () => {
             color: '#f9f9f9',
             border: '3px solid #e1e1e1',
           }}
-          onClick={() => {}}
+          onClick={() => {
+            navigate('/bee/product')
+          }}
           color="secondary"
           endIcon={<LocalMall style={{ fontSize: '35px' }} />}
         >
