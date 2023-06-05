@@ -27,5 +27,5 @@
   padding: 0;
   list-style-type: none;
   box-sizing: border-box;
-  /* font-family: creamfont; */
+  font-family: var(--jfopenhuninn);
 }
