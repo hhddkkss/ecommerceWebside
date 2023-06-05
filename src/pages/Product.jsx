@@ -81,12 +81,16 @@ const Product = () => {
   useEffect(() => {
     //關鍵字篩選
     let display = searchProduct(allProducts, keyWord)
+
     //商品排序
     display = sortProducts(display, sortType)
+
     //商品類別篩選
     display = filterProductByProductType(display, productType)
+
     //品牌篩選
     display = filterProductByBrand(display, brand)
+
     setDisplayProducts(display)
   }, [allProducts, keyWord, sortType, productType, brand])
 
