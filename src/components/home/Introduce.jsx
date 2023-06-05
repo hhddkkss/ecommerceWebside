@@ -4,37 +4,42 @@ import React, { useEffect, useRef, useState } from 'react'
 import { debounce } from '../../utils/globalHelper'
 
 const Container = styled.div`
-  background: #f8f7f4;
+  /* background: #f8f7f4; */
+  background: #f0f0f0;
+  /* background: radial-gradient(circle at 30%, #f8f7f4, #d2d2d2); */
   font-family: var(--creamfont);
   display: flex;
   flex-wrap: nowrap;
+  /* padding: 5rem; */
   @media screen and (max-width: 1000px) {
     flex-wrap: wrap;
   }
 `
 
 const Left = styled.div`
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 3rem 0;
+  flex-basis: 40%;
   @media screen and (max-width: 1000px) {
-    padding: 1rem;
+    padding: 3rem;
+    flex-basis: 100%;
   }
 `
 
 const Right = styled.div`
-  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  flex-basis: 60%;
   @media screen and (max-width: 1000px) {
     flex-wrap: wrap;
     flex-direction: column;
     padding: 1rem;
+    flex-basis: 100%;
   }
 `
 
@@ -126,7 +131,6 @@ const Introduce = () => {
   const handleScroll = () => {
     const { scrollTop, clientHeight } = document.documentElement
     const introduceDistance = introduceRef.current.offsetTop
-    console.log(111)
     if (scrollTop > introduceDistance / 4) {
       setContentMove(true)
     }
@@ -151,9 +155,6 @@ const Introduce = () => {
           <Title>Bee a Choice!</Title>
           <Slogan>科技生活，</Slogan>
           <Slogan>科技選物。</Slogan>
-          {/* <Content>
-            我們是一個希望讓所有人更方便挑選到適合自己商品的3C電商,帶給大家有質感的商品。
-          </Content> */}
         </Box>
       </Left>
       <Right>
