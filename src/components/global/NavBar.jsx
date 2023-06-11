@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { Link as LinkComponent } from 'react-router-dom'
 import styled from '@emotion/styled'
+import PersonIcon from '@mui/icons-material/Person'
 
 const pages = ['比比精選', '比比論壇', '比比會員', '比比活動']
 
@@ -137,8 +138,15 @@ function NavBar() {
             <IconButton sx={{ p: 0 }}>
               <ShoppingCartIcon
                 fontSize="small"
-                sx={{ color: '#fff', fontSize: { xs: 'large', lg: 'medium' } }}
+                sx={{
+                  color: '#fff',
+
+                  fontSize: { lg: 'large' },
+                }}
               ></ShoppingCartIcon>
+              <PersonIcon
+                sx={{ color: '#fff', lg: 'large', marginLeft: 3 }}
+              ></PersonIcon>
             </IconButton>
           </Box>
         </Toolbar>
