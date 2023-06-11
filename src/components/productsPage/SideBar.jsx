@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import KeyboardDoubleArrowRightTwoToneIcon from '@mui/icons-material/KeyboardDoubleArrowRightTwoTone'
-import Fab from '@mui/material/Fab'
 
 const brandOption = [
   '全部品牌',
@@ -29,7 +28,7 @@ const SideBarButton = styled.button`
   border: none;
   width: 32px;
   height: 200px;
-  transition: left 0.5s ease-in;
+  transition: left 0.3s ease-in;
   color: var(--deepBlue);
   font-size: 16px;
   padding: 2px;
@@ -44,7 +43,7 @@ const Container = styled.div`
   background-color: #f8f8f8;
   min-width: 250px;
   z-index: 10;
-  transition: left 0.5s ease-in;
+  transition: left 0.3s ease-in;
 `
 
 const List = styled.ul`

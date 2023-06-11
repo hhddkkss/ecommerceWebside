@@ -91,6 +91,7 @@ const Product = () => {
     //品牌篩選
     display = filterProductByBrand(display, brand)
 
+    setSideBarExtend(false) //按下選項後會自動收合選單 （可加可不加）
     setDisplayProducts(display)
   }, [allProducts, keyWord, sortType, productType, brand])
 
