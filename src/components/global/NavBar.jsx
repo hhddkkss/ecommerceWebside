@@ -4,6 +4,7 @@ import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
+import Badge from '@mui/material/Badge'
 import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
@@ -22,6 +23,13 @@ const path = {
   比比會員: '/bee/member',
   比比活動: '/bee/activities',
 }
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 0,
+    padding: '0 4px',
+  },
+}))
 
 const Link = styled(LinkComponent)`
   text-decoration: none;
@@ -134,19 +142,19 @@ function NavBar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <IconButton sx={{ p: 0 }}>
-              <ShoppingCartIcon
-                fontSize="small"
-                sx={{
-                  color: '#fff',
-
-                  fontSize: { lg: 'large' },
-                }}
-              ></ShoppingCartIcon>
-              <PersonIcon
-                sx={{ color: '#fff', lg: 'large', marginLeft: 3 }}
-              ></PersonIcon>
+          <Box>
+            <IconButton
+              sx={{
+                p: 0,
+                color: '#fff',
+              }}
+            >
+              <StyledBadge badgeContent={4} color="orange">
+                <ShoppingCartIcon fontSize="medium" />
+              </StyledBadge>
+            </IconButton>
+            <IconButton sx={{ color: '#fff', marginLeft: 3 }}>
+              <PersonIcon fontSize="medium"></PersonIcon>
             </IconButton>
           </Box>
         </Toolbar>
