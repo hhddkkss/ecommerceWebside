@@ -10,6 +10,8 @@ import 'swiper/css/pagination'
 // import required modules
 import { Navigation, Pagination, Autoplay } from 'swiper'
 import styled from '@emotion/styled'
+import { useTheme } from '@mui/material'
+
 const imgData = [
   {
     id: 1,
@@ -36,15 +38,15 @@ const imgData = [
 
 const Swiper = styled(SwiperComponent)`
   width: 100%;
-  height: 40vh;
+  height: 50vh;
   margin: 0 auto;
 
   & {
     .swiper-button-next:after {
-      color: var(--deepBlue);
+      color: ${({ deepBlue }) => deepBlue};
     }
     .swiper-button-prev:after {
-      color: var(--deepBlue);
+      color: ${({ deepBlue }) => deepBlue};
     }
     .swiper-pagination-bullet-active {
       background-color: #233a66 !important;
@@ -72,7 +74,7 @@ const SwiperSlide = styled(SwiperSlideComponent)`
 const Image = styled.img`
   display: block;
   width: 100%;
-  height: 40vh;
+  height: 50vh;
   object-fit: cover;
   @media screen and (max-width: 576px) {
     height: 50vh;
@@ -81,7 +83,7 @@ const Image = styled.img`
 
 const Advertise = styled.div`
   width: 100%;
-  height: 40vh;
+  height: 50vh;
   background-color: rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
@@ -97,7 +99,6 @@ const AdvertiseText = styled.div`
   bottom: 10%;
   left: 8%;
   letter-spacing: 0.05rem;
-  background-color: #d7d7d74e;
   padding: 1rem;
   border-radius: 5px;
   @media screen and (max-width: 576px) {
@@ -111,7 +112,7 @@ const AdvertiseText = styled.div`
   }
 `
 const AdvertiseTextH2 = styled.h2`
-  color: var(--deepBlue);
+  color: ${({ deepBlue }) => deepBlue};
   margin-bottom: 1rem;
   text-align: center;
   @media screen and (max-width: 576px) {
@@ -122,13 +123,16 @@ const AdvertiseTextH2 = styled.h2`
 `
 
 const AdvertiseTextP = styled.p`
-  color: var(--deepBlue);
+  color: ${({ deepBlue }) => deepBlue};
   color: #fff;
   @media screen and (max-width: 576px) {
     display: none;
   }
 `
 const Carousel = () => {
+  const theme = useTheme()
+  const { deepBlue } = theme.normal
+
   return (
     <Swiper
       pagination={{
@@ -141,6 +145,7 @@ const Carousel = () => {
       loop={true} //是否可以循環 最後一張 => 第一張
       navigation={true} // navigation bar
       modules={[Navigation, Pagination, Autoplay]}
+      deepBlue={deepBlue}
     >
       {imgData.map((img) => {
         return (
@@ -148,8 +153,12 @@ const Carousel = () => {
             <Image src={img.src} alt="dog" />
             <Advertise>
               <AdvertiseText>
-                <AdvertiseTextH2>{img.type}</AdvertiseTextH2>
-                <AdvertiseTextP>{img.content}</AdvertiseTextP>
+                <AdvertiseTextH2 deepBlue={deepBlue}>
+                  {img.type}
+                </AdvertiseTextH2>
+                <AdvertiseTextP deepBlue={deepBlue}>
+                  {img.content}
+                </AdvertiseTextP>
               </AdvertiseText>
             </Advertise>
           </SwiperSlide>
