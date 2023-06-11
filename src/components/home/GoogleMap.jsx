@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 //step 1: npm @react-google-maps/api'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 
 /**vite定義環境變數寫法：
  * 1.在.env裡 給定一個環境變數 需要加上VITE_ 前綴字
@@ -19,7 +19,7 @@ const Mymap = () => {
   //step 3: 如果寫入失敗 顯示的訊息
   if (!isLoaded) return <div>isLoading....</div>
 
-  return <Map>123</Map>
+  return <Map />
 }
 
 export default Mymap
@@ -35,8 +35,6 @@ export default Mymap
  * */
 
 function Map() {
-  const position = useMemo(() => ({ lat: 25.036339, lng: 121.568567 }), [])
-
   const positionData = useMemo(() => [
     { lat: 25.036339, lng: 121.568567 },
     { lat: 25.123042, lng: 121.789891 },
@@ -44,23 +42,27 @@ function Map() {
     { lat: 24.896339, lng: 121.121567 },
     { lat: 24.989934, lng: 121.452567 },
   ])
+
   return (
-    <Box>
-      <Typography
-        variant="h4"
-        color="text.secondary"
-        sx={{ fontFamily: 'var(--jfopenhuninn)', padding: '1rem 1rem 2rem' }}
-      >
-        - 實體店面
-      </Typography>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <GoogleMap
-        zoom={10}
-        center={position}
-        mapContainerStyle={{ height: '500px' }}
+        zoom={9}
+        center={{ lat: 25.036339, lng: 121.568567 }}
+        mapContainerStyle={{
+          height: '400px',
+          width: '100%',
+          borderRadius: '5px',
+          overflow: 'visible',
+        }}
       >
-        {/* <Marker position={position}></Marker> */}
         {positionData.map((item, i) => (
-          <Marker key={i} position={item}></Marker>
+          <Marker key={i} position={item} />
         ))}
       </GoogleMap>
     </Box>
