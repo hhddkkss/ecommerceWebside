@@ -5,7 +5,6 @@ import { Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { useEffect, useState } from 'react'
-import { Scale } from '@mui/icons-material'
 
 const PopularProduct = () => {
   const [popularProductData, setPopularProductData] = useState([])
@@ -41,20 +40,21 @@ const PopularProduct = () => {
     <Box
       sx={{
         p: '2rem',
-        background: '#F0F0F0',
+        maxWidth: '1200px',
+        margin: '0 auto 2rem',
       }}
     >
       <Typography
         variant="h4"
         color="text.secondary"
-        sx={{ fontFamily: 'var(--jfopenhuninn)' }}
+        textAlign="center"
+        sx={{ fontFamily: 'var(--jfopenhuninn)', mb: 4 }}
       >
-        - 熱門推薦商品
+        熱門推薦商品
       </Typography>
 
       {mobileMode ? (
         <Swiper
-          slidesPerView={mobileMode ? 1 : 3}
           pagination={{
             clickable: true,
           }}
@@ -65,9 +65,9 @@ const PopularProduct = () => {
             return (
               <SwiperSlide
                 key={item.product_id}
-                style={{ height: '100%', padding: '2rem', cursor: 'pointer' }}
+                style={{ height: '100%', cursor: 'pointer' }}
               >
-                <Card
+                <Box
                   sx={{
                     height: '450px',
                     padding: '1rem',
@@ -90,63 +90,69 @@ const PopularProduct = () => {
                   <Box sx={{ aspectRatio: 1 / 1 }}>
                     <CardMedia
                       src={`/images/${item.product_pic[0]}`}
-                      sx={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                      sx={{
+                        objectFit: 'cover',
+                        width: '100%',
+                        height: '100%',
+                        verticalAlign: 'top',
+                      }}
                       component="img"
                     ></CardMedia>
                   </Box>
-                </Card>
+                </Box>
               </SwiperSlide>
             )
           })}
         </Swiper>
       ) : (
-        <Grid
-          container
-          sx={{ p: { md: 10, xs: 4 } }}
-          spacing={10}
-          align-items="stretch"
-        >
-          {popularProductData.map((item) => {
-            return (
-              <Grid item md={4} xs={12} key={item.product_id}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    padding: '1rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease-in',
-                    '&:hover': {
-                      transform: 'scale(1.01)',
-                      boxShadow: '2px 4px 16px rgba(0,0,0,.16);',
-                    },
-                  }}
-                  raised={true}
-                >
-                  <Typography variant="body1" sx={{ color: 'red' }}>
-                    Recommend
-                  </Typography>
-                  <Typography variant="h5" color="text.secondary">
-                    {item.product_name}
-                  </Typography>
-                  <Typography variant="h6">
-                    {(+item.product_price).toLocaleString('zh-TW', {
-                      style: 'currency',
-                      currency: 'NTD',
-                      minimumFractionDigits: 0,
-                    })}
-                  </Typography>
-                  <Box sx={{ aspectRatio: 1 / 1 }}>
-                    <CardMedia
-                      src={`/images/${item.product_pic[0]}`}
-                      sx={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                      component="img"
-                    ></CardMedia>
-                  </Box>
-                </Card>
-              </Grid>
-            )
-          })}
-        </Grid>
+        <Box sx={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <Grid container spacing={2} align-items="stretch">
+            {popularProductData.map((item) => {
+              return (
+                <Grid item sm={4} xs={12} key={item.product_id}>
+                  <Card
+                    sx={{
+                      height: '100%',
+                      padding: '1rem',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in',
+                      '&:hover': {
+                        transform: 'scale(1.01)',
+                        boxShadow: '2px 4px 16px rgba(0,0,0,.16);',
+                      },
+                    }}
+                    raised={true}
+                  >
+                    <Typography variant="body1" sx={{ color: 'red' }}>
+                      Recommend
+                    </Typography>
+                    <Typography variant="h5" color="text.secondary">
+                      {item.product_name}
+                    </Typography>
+                    <Typography variant="h6">
+                      {(+item.product_price).toLocaleString('zh-TW', {
+                        style: 'currency',
+                        currency: 'NTD',
+                        minimumFractionDigits: 0,
+                      })}
+                    </Typography>
+                    <Box sx={{ aspectRatio: 1 / 1 }}>
+                      <CardMedia
+                        src={`/images/${item.product_pic[0]}`}
+                        sx={{
+                          objectFit: 'cover',
+                          width: '100%',
+                          height: '100%',
+                        }}
+                        component="img"
+                      ></CardMedia>
+                    </Box>
+                  </Card>
+                </Grid>
+              )
+            })}
+          </Grid>
+        </Box>
       )}
     </Box>
   )
