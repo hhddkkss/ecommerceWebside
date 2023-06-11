@@ -1,10 +1,12 @@
 import Banner from '../components/home/Banner'
 import Marquee from '../components/home/Marquee'
 import Carousel from '../components/home/Carousel'
-import Mymap from '../components/home/Mymap'
 import Introduce from '../components/home/Introduce'
 import News from '../components/home/News'
 import PopularProduct from '../components/home/PopularProduct'
+import Footer from '../components/home/Footer'
+import MiddleMsg from '../components/home/MiddleMsg'
+import Location from '../components/home/Location'
 
 const Home = () => {
   return (
@@ -12,10 +14,12 @@ const Home = () => {
       <Marquee></Marquee>
       <Carousel></Carousel>
       <Introduce></Introduce>
-      <News></News>
+      <MiddleMsg></MiddleMsg>
       <PopularProduct></PopularProduct>
+      <Location></Location>
+      <News></News>
       <Banner></Banner>
-      <Mymap></Mymap>
+      <Footer></Footer>
     </>
   )
 }
