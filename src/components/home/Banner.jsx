@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { LocalMall } from '@mui/icons-material'
-import { Box, Button } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -28,21 +28,24 @@ const TextContainer = styled.div`
   }
 `
 
-const Text = styled.p`
-  font-size: 50px;
-  font-family: var(--jfopenhuninn);
-  color: #f9f9f9;
-  margin-bottom: 1rem;
-  letter-spacing: 0.1rem;
-`
+const style = {
+  fontFamily: 'var(--jfopenhuninn)',
+  color: '#f9f9f9',
+  marginBottom: '1rem',
+  letterSpacing: '0.1rem',
+}
 
 const Banner = () => {
   const navigate = useNavigate()
   return (
     <Container>
       <TextContainer>
-        <Text>Smart</Text>
-        <Text style={{ marginBottom: '3rem' }}>Choice.</Text>
+        <Typography variant="h2" sx={{ ...style }}>
+          Smart
+        </Typography>
+        <Typography variant="h2" sx={{ ...style, mb: 6 }}>
+          Choice.
+        </Typography>
         <Button
           variant="contain"
           sx={{
