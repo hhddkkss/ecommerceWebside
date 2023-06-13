@@ -3,6 +3,7 @@ import TitleAndPath from '../components/productsPage/TitleAndPath'
 import FunctionalBar from '../components/productsPage/FunctionalBar'
 import ProductDisplay from '../components/productsPage/ProductDisplay'
 import SideBar from '../components/productsPage/SideBar'
+import ProductCompare from '../components/productsPage/ProductCompare'
 import { Box } from '@mui/material'
 import {
   sortProducts,
@@ -10,7 +11,7 @@ import {
   filterProductByProductType,
   filterProductByBrand,
   fetchProducts,
-} from '../utils/prodcutsHelper'
+} from '../utils/productsHelper'
 import { debounce } from '../utils/globalHelper'
 
 import styled from '@emotion/styled'
@@ -23,7 +24,7 @@ const Container = styled.div`
   }
 `
 
-const ProductRight = styled.div`
+const ProductArea = styled.div`
   margin: 0 auto;
 `
 
@@ -113,8 +114,6 @@ const Product = () => {
 
   return (
     <Box onClick={(e) => handleOutsideClick(e)}>
-      {/* <Carousel sideBarExtend={sideBarExtend} />
-      <Marquee sideBarExtend={sideBarExtend}></Marquee> */}
       <SideBar
         sortType={sortType}
         setSortType={setSortType}
@@ -124,7 +123,7 @@ const Product = () => {
         setProductType={setProductType}
       ></SideBar>
       <Container>
-        <ProductRight>
+        <ProductArea>
           <TitleAndPath
             sideBarExtend={sideBarExtend}
             brand={brand}
@@ -139,8 +138,9 @@ const Product = () => {
             noMoreProducts={noMoreProducts}
             sideBarExtend={sideBarExtend}
           ></ProductDisplay>
-        </ProductRight>
+        </ProductArea>
       </Container>
+      <ProductCompare sideBarExtend={sideBarExtend}></ProductCompare>
     </Box>
   )
 }

@@ -4,6 +4,7 @@ import Product from './pages/Product'
 import Dashboard from './pages/Dashboard'
 import Home from './pages/Home'
 import { ThemeProvider, createTheme } from '@mui/material'
+import { CompareContextProvider } from './context/CompareContext'
 
 const theme = createTheme({
   normal: {
@@ -20,6 +21,9 @@ const theme = createTheme({
     secondary: {
       main: '#4f4f4f',
     },
+    orange: {
+      main: '#e59069',
+    },
   },
 })
 
@@ -27,14 +31,16 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Router>
-          <Routes>
-            <Route path="/bee" element={<Dashboard />}>
-              <Route path="home" element={<Home />}></Route>
-              <Route path="product" element={<Product />}></Route>
-            </Route>
-          </Routes>
-        </Router>
+        <CompareContextProvider>
+          <Router>
+            <Routes>
+              <Route path="/bee" element={<Dashboard />}>
+                <Route path="home" element={<Home />}></Route>
+                <Route path="product" element={<Product />}></Route>
+              </Route>
+            </Routes>
+          </Router>
+        </CompareContextProvider>
       </ThemeProvider>
     </>
   )

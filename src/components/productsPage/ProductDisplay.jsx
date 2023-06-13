@@ -7,7 +7,10 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { ReactComponent as CompareButtonBlue } from '../../assets/svg/CompareButtonBlue.svg'
 import { ReactComponent as CompareButtonYellow } from '../../assets/svg/CompareButtonYellow.svg'
 import Grid from '@mui/material/Grid'
-import { Box } from '@mui/material'
+import { Box, Alert, Snackbar } from '@mui/material'
+import { addToCompareList, getCompareList } from '../../utils/productsHelper'
+import CompareContext from '../../context/CompareContext'
+import { useContext, useEffect, useState } from 'react'
 
 const ProductCards = styled(Box)`
   max-width: 1200px;
@@ -100,8 +103,67 @@ const BottomMsg = styled.p`
 `
 
 const ProductDisplay = ({ products, noMoreProducts, sideBarExtend }) => {
+  const { myCompareList, setMyCompareList } = useContext(CompareContext)
+
+  const [msgOpen, setMsgOpen] = useState(false)
+
+  const handleMsgOpen = () => {
+    setMsgOpen(true)
+  }
+
+  const handleMsgClose = () => {
+    setMsgOpen(false)
+  }
+
+  const handleAddToCompareList = (
+    itemPid,
+    itemName,
+    itemPrice,
+    ItemPic,
+    categoryId
+  ) => {
+    //加入比較列表的物件
+    addToCompareList(itemPid, itemName, itemPrice, ItemPic, categoryId)
+    //從localStorage 拿到最新的資料
+    const newCompareList = getCompareList()
+    setMyCompareList(newCompareList)
+    //提示訊息
+    handleMsgOpen()
+  }
+
   return (
-    <ProductCards sideBarExtend={sideBarExtend}>
+    <ProductCards
+      sideBarExtend={sideBarExtend}
+      sx={{
+        width: {
+          xl: '1200px',
+          lg: '1200px',
+          md: '900px',
+          sm: '600px',
+          xs: '100%',
+        },
+      }}
+    >
+      <Snackbar
+        open={msgOpen}
+        autoHideDuration={1000}
+        onClose={handleMsgClose}
+        style={{
+          width: '300px',
+          position: 'fixed',
+          top: '20%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        <Alert
+          onClose={handleMsgClose}
+          severity="success"
+          sx={{ width: '100%' }}
+        >
+          商品成功加入比較列表!
+        </Alert>
+      </Snackbar>
       <Grid container spacing={2} mb={2}>
         {products.map((product) => {
           return (
@@ -151,6 +213,15 @@ const ProductDisplay = ({ products, noMoreProducts, sideBarExtend }) => {
                       left: '10px',
                       cursor: 'pointer',
                     }}
+                    onClick={() =>
+                      handleAddToCompareList(
+                        product.product_id,
+                        product.product_name,
+                        product.product_price,
+                        product.product_pic.split(',')[0],
+                        product.product_category_id
+                      )
+                    }
                   ></CompareButtonYellow>
                 </ProductCardMask>
                 <ProductTitle>BeE. Selected</ProductTitle>
