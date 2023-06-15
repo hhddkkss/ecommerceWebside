@@ -142,6 +142,9 @@ const ProductCompare = ({ sideBarExtend }) => {
     deleteFromComparing(itemPid)
     const data = getComparing()
     setComparing(data)
+    fetchComparingDetails(JSON.stringify(data), TypeChangeToNumber(compareType))
+      .then((res) => setComparingDetail(res))
+      .catch((e) => console.log(e))
   }
 
   useEffect(() => {
