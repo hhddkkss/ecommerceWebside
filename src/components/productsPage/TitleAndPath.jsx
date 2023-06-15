@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 const Container = styled.div`
   filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
   max-width: 1200px;
-  margin: 0 auto 1rem;
+  margin: 2rem auto 1rem;
 `
 
 const Title = styled.h2`
