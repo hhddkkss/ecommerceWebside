@@ -29,3 +29,9 @@
   box-sizing: border-box;
   font-family: var(--jfopenhuninn);
 }
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
