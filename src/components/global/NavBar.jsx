@@ -199,10 +199,14 @@ function NavBar() {
                   }}
                   sx={{ width: '200px', ml: -2 }}
                 >
-                  <MenuItem sx={{ fontSize: '16px' }}>
-                    {memberAuth.memberName}
+                  <MenuItem>
+                    <Typography fontFamily={'jf-openhuninn'}>
+                      {memberAuth.memberName}
+                    </Typography>
                   </MenuItem>
-                  <MenuItem onClick={handleUserLogout}>登出</MenuItem>
+                  <MenuItem onClick={handleUserLogout}>
+                    <Typography fontFamily={'jf-openhuninn'}>登出</Typography>
+                  </MenuItem>
                 </Menu>
               </>
             ) : (
