@@ -106,10 +106,20 @@ const PopularProduct = () => {
         </Swiper>
       ) : (
         <Box sx={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <Grid container spacing={2} align-items="stretch">
-            {popularProductData.map((item) => {
+          <Grid
+            container
+            spacing={2}
+            align-items="stretch"
+  
+          >
+            {popularProductData.map((item, i) => {
               return (
-                <Grid item sm={4} xs={12} key={item.product_id}>
+                <Grid
+                  item
+                  sm={i === 2 || i === 3 ? 5 : 3.5}
+                  xs={12}
+                  key={item.product_id}
+                >
                   <Card
                     sx={{
                       height: '100%',
@@ -136,7 +146,7 @@ const PopularProduct = () => {
                         minimumFractionDigits: 0,
                       })}
                     </Typography>
-                    <Box sx={{ aspectRatio: 1 / 1 }}>
+                    <Box sx={{ minWidth: '150px' }}>
                       <CardMedia
                         src={`/images/${item.product_pic[0]}`}
                         sx={{
