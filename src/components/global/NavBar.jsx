@@ -11,9 +11,13 @@ import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import { Link as LinkComponent } from 'react-router-dom'
+import { Link as LinkComponent, useNavigate } from 'react-router-dom'
 import styled from '@emotion/styled'
 import PersonIcon from '@mui/icons-material/Person'
+import { useTheme } from '@emotion/react'
+import AuthContext from '../../context/AuthContext'
+import { useContext } from 'react'
+import { useState } from 'react'
 
 const pages = ['比比精選', '比比論壇', '比比會員', '比比活動']
 
@@ -37,7 +41,11 @@ const Link = styled(LinkComponent)`
 `
 
 function NavBar() {
+  const theme = useTheme()
   const [anchorElNav, setAnchorElNav] = React.useState(null)
+  const { memberAuth, Logout } = useContext(AuthContext)
+
+  const [anchorLogout, setAnchorLogout] = useState(null)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
@@ -47,18 +55,29 @@ function NavBar() {
     setAnchorElNav(null)
   }
 
+  const handleOpenLogout = (event) => {
+    setAnchorLogout(event.currentTarget)
+  }
+  const handleCloseLogout = () => {
+    setAnchorLogout(null)
+  }
+
+  const handleUserLogout = () => {
+    setAnchorLogout(null)
+    Logout()
+  }
+
+  const navigation = useNavigate()
+
   return (
-    <AppBar
-      position="sticky"
-      sx={{ backgroundColor: 'var(--deepBlue)', zIndex: '10' }}
-    >
+    <AppBar position="sticky" sx={{ backgroundColor: 'var(--deepBlue)' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="/bee/home"
+            onClick={() => navigation('/bee/home')}
             sx={{
               mr: 5,
               display: { xs: 'none', md: 'flex' },
@@ -67,6 +86,8 @@ function NavBar() {
               letterSpacing: '.2rem',
               color: 'inherit',
               textDecoration: 'none',
+              cursor: 'pointer',
+              userSelect: 'none',
             }}
           >
             BEEBeE<span style={{ color: '#000' }}>.</span>
@@ -134,7 +155,8 @@ function NavBar() {
               <Link to={path[page]} key={page}>
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ mr: 5, my: 2, color: 'white', display: 'block' }}
+                  color="white"
+                  sx={{ mr: 5, my: 2, display: 'block' }}
                 >
                   {page}
                 </Button>
@@ -153,9 +175,46 @@ function NavBar() {
                 <ShoppingCartIcon fontSize="medium" />
               </StyledBadge>
             </IconButton>
-            <IconButton sx={{ color: '#fff', marginLeft: 3 }}>
-              <PersonIcon fontSize="medium"></PersonIcon>
-            </IconButton>
+            {memberAuth.authorized ? (
+              <>
+                <IconButton
+                  sx={{ color: '#fff', marginLeft: 3 }}
+                  onClick={handleOpenLogout}
+                >
+                  <PersonIcon fontSize="medium"></PersonIcon>
+                </IconButton>
+                <Menu
+                  open={Boolean(anchorLogout)}
+                  onClose={handleCloseLogout}
+                  anchorEl={anchorLogout}
+                  // 控制Menu出現的位置
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  sx={{ width: '200px', ml: -2 }}
+                >
+                  <MenuItem sx={{ fontSize: '16px' }}>
+                    {memberAuth.memberName}
+                  </MenuItem>
+                  <MenuItem onClick={handleUserLogout}>登出</MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <IconButton
+                sx={{ color: '#fff', marginLeft: 3 }}
+                onClick={() => {
+                  navigation('/bee/login')
+                }}
+              >
+                <PersonIcon fontSize="medium"></PersonIcon>
+              </IconButton>
+            )}
           </Box>
         </Toolbar>
       </Container>
