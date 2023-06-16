@@ -5,16 +5,15 @@
 //=> const { memberAuth } = useContext(AuthContext)
 //裡頭即有 memberEmail,memberId,token
 
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom' //頁面轉向hook
 
 const AuthContext = createContext({})
 export default AuthContext
 
 export const AuthContextProvider = function ({ children }) {
-  //usenavigate
   const navigate = useNavigate()
-
+  const memberAuthData = localStorage.getItem('beebeeMemberAuth')
   //預設未登入狀態
   const unAuth = {
     authorized: false,
@@ -24,11 +23,17 @@ export const AuthContextProvider = function ({ children }) {
     token: '',
   }
 
-  let initAuth = { ...unAuth }
+  let initAuth = {}
+
+  if (memberAuthData) {
+    initAuth = { ...JSON.parse(memberAuthData), authorized: true }
+  } else {
+    initAuth = { ...unAuth }
+  }
+
   const [memberAuth, setMemberAuth] = useState(initAuth)
 
   useEffect(() => {
-    const memberAuthData = localStorage.getItem('beebeeMemberAuth')
     try {
       if (memberAuthData) {
         const localAuth = JSON.parse(memberAuthData)
