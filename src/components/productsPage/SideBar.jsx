@@ -44,6 +44,7 @@ const Container = styled.div`
   min-width: 250px;
   z-index: 10;
   transition: left 0.3s ease-in;
+  padding-top: 2rem;
 `
 
 const List = styled.ul`

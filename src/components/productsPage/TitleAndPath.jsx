@@ -1,4 +1,6 @@
 import styled from '@emotion/styled'
+import { Box, useTheme } from '@mui/material'
+import SortIcon from '@mui/icons-material/Sort'
 
 const Container = styled.div`
   filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
@@ -45,6 +47,10 @@ const PathItem = styled.li`
   }
 `
 
+const SortType = styled.p`
+  color: var(--deepBlue);
+`
+
 function productTypeNumToWord(productType) {
   switch (productType) {
     case 0:
@@ -58,7 +64,9 @@ function productTypeNumToWord(productType) {
   }
 }
 
-const TitleAndPath = ({ sideBarExtend, brand, productType }) => {
+const TitleAndPath = ({ sideBarExtend, brand, productType, sortType }) => {
+  const theme = useTheme()
+
   return (
     <Container sideBarExtend={sideBarExtend}>
       <Title>
@@ -67,11 +75,14 @@ const TitleAndPath = ({ sideBarExtend, brand, productType }) => {
       <Slogan>
         We always <Logo>beE.</Logo> side you.
       </Slogan>
-      <Path>
-        <PathItem>目前產品分類</PathItem>
-        <PathItem>{productTypeNumToWord(productType)}</PathItem>
-        <PathItem>{brand}</PathItem>
-      </Path>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Path>
+          <PathItem>目前產品分類</PathItem>
+          <PathItem>{productTypeNumToWord(productType)}</PathItem>
+          <PathItem>{brand}</PathItem>
+        </Path>
+        <SortType>目前排序：{sortType}</SortType>
+      </Box>
     </Container>
   )
 }

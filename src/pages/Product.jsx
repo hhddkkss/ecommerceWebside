@@ -128,6 +128,7 @@ const Product = () => {
             sideBarExtend={sideBarExtend}
             brand={brand}
             productType={productType}
+            sortType={sortType}
           />
           <FunctionalBar
             setKeyWord={setKeyWord}
