@@ -9,7 +9,7 @@ const Container = styled.div`
   margin: 0 auto 2rem;
   display: flex;
   justify-content: space-between;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 600px) {
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -17,13 +17,15 @@ const Container = styled.div`
 
 const UserInput = styled.div`
   display: flex;
-  @media screen and (max-width: 700px) {
+  justify-content: flex-start;
+  @media screen and (max-width: 600px) {
+    justify-content: center;
     margin-bottom: 1rem;
   }
 `
 
 const SearchKeyword = styled.input`
-  width: 190px;
+  /* width: 190px; */
   border-radius: 20px;
   padding: 0.7rem;
   border: none;
@@ -40,7 +42,7 @@ const SearchKeyword = styled.input`
 `
 
 const SearchButton = styled.button`
-  width: 130px;
+  width: 110px;
   text-align: right;
   border-radius: 20px;
   border: none;
@@ -48,7 +50,7 @@ const SearchButton = styled.button`
   color: var(--wordGray);
   background-color: transparent;
   border: 1px solid var(--deepBlue);
-  transform: translate(-30%);
+  margin-left: -10%;
   &:hover {
     background-color: var(--deepBlue);
     color: white;
@@ -58,7 +60,7 @@ const SearchButton = styled.button`
   }
 `
 
-const FunctionalBar = ({ setKeyWord,sideBarExtend }) => {
+const FunctionalBar = ({ setKeyWord, sideBarExtend }) => {
   const [userInput, setUserInput] = useState('')
 
   const handleChangeInput = (e) => {
@@ -80,7 +82,7 @@ const FunctionalBar = ({ setKeyWord,sideBarExtend }) => {
           onKeyUp={(e) => e.key === 'Enter' && handleSearchButton()}
         ></SearchKeyword>
         <SearchButton onClick={handleSearchButton}>
-          搜尋 {}
+          搜尋
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </SearchButton>
       </UserInput>

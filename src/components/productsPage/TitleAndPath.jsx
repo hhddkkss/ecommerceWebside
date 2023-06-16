@@ -33,7 +33,7 @@ const Logo = styled.span`
 const Path = styled.ul`
   display: flex;
   gap: 1rem;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 600px) {
     justify-content: center;
   }
 `
@@ -75,7 +75,14 @@ const TitleAndPath = ({ sideBarExtend, brand, productType, sortType }) => {
       <Slogan>
         We always <Logo>beE.</Logo> side you.
       </Slogan>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: { xs: 'center', sm: 'space-between' },
+          flexWrap: { xs: 'wrap' },
+          gap: { xs: 2 },
+        }}
+      >
         <Path>
           <PathItem>目前產品分類</PathItem>
           <PathItem>{productTypeNumToWord(productType)}</PathItem>

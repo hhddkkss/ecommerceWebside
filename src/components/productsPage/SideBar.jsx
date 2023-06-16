@@ -33,6 +33,9 @@ const SideBarButton = styled.button`
   font-size: 16px;
   padding: 2px;
   z-index: 10;
+  @media screen and (max-width: 600px) {
+    height: 80px;
+  }
 `
 
 const Container = styled.div`
