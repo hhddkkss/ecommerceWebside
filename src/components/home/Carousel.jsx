@@ -43,10 +43,10 @@ const Swiper = styled(SwiperComponent)`
 
   & {
     .swiper-button-next:after {
-      color: ${({ deepBlue }) => deepBlue};
+      color: ${({ deepblue }) => deepblue};
     }
     .swiper-button-prev:after {
-      color: ${({ deepBlue }) => deepBlue};
+      color: ${({ deepblue }) => deepblue};
     }
     .swiper-pagination-bullet-active {
       background-color: #233a66 !important;
@@ -145,7 +145,7 @@ const Carousel = () => {
       loop={true} //是否可以循環 最後一張 => 第一張
       navigation={true} // navigation bar
       modules={[Navigation, Pagination, Autoplay]}
-      deepBlue={deepBlue}
+      deepblue={deepBlue}
     >
       {imgData.map((img) => {
         return (
