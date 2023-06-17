@@ -4,17 +4,21 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 // 要像CRA一樣把svg匯入成component 要在vite.config.js 中 使用 vite-plugin-svgr
-import { ReactComponent as CompareButtonBlue } from '../../assets/svg/CompareButtonBlue.svg'
 import { ReactComponent as CompareButtonYellow } from '../../assets/svg/CompareButtonYellow.svg'
 import Grid from '@mui/material/Grid'
 import { Box, Alert, Snackbar } from '@mui/material'
 import { addToCompareList, getCompareList } from '../../utils/productsHelper'
 import CompareContext from '../../context/CompareContext'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 
 const ProductCards = styled(Box)`
   max-width: 1200px;
+
   filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
+  @media screen and (max-width: 600px) {
+    //加上NavigationPanel的距離
+    padding-bottom: 56px;
+  }
 `
 
 const ProductCard = styled.div`
@@ -30,6 +34,11 @@ const ProductCard = styled.div`
   &:hover > div {
     opacity: 1;
   }
+
+  @media screen and (max-width: 600px) {
+    /* padding-left: 1rem;
+    padding-right: 1rem; */
+  }
 `
 const ProductCardMask = styled.div`
   position: absolute;
@@ -40,7 +49,10 @@ const ProductCardMask = styled.div`
   opacity: 0;
   transition: 0.25s ease-in;
   z-index: 3;
-  @media (max-width: 767px) {
+
+  @media screen and (max-width: 600px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
     opacity: 1;
     background-color: transparent;
   }
@@ -140,8 +152,9 @@ const ProductDisplay = ({ products, noMoreProducts, sideBarExtend }) => {
           lg: '1200px',
           md: '900px',
           sm: '600px',
-          xs: '100%',
+          xs: '90%',
         },
+        margin: '0 auto',
       }}
     >
       <Snackbar
@@ -164,6 +177,7 @@ const ProductDisplay = ({ products, noMoreProducts, sideBarExtend }) => {
           商品成功加入比較列表!
         </Alert>
       </Snackbar>
+
       <Grid container spacing={2} mb={2}>
         {products.map((product) => {
           return (
@@ -185,7 +199,7 @@ const ProductDisplay = ({ products, noMoreProducts, sideBarExtend }) => {
                   })}
                 </ProductPrice>
                 <ProductCardMask>
-                  {/* FIXME: 加入喜歡後 變成實心的愛心 */}
+                  {/* NOTE: 加入喜歡後 變成實心的愛心 */}
                   <FavoriteBorderOutlinedIcon
                     style={{
                       color: 'var(--deepBlue)',

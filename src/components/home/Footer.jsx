@@ -2,7 +2,10 @@ import { Box, Typography } from '@mui/material'
 
 const Footer = () => {
   return (
-    <Box sx={{ padding: 2, backgorund: '#F4F4F4' }}>
+    <Box
+      //加上NavigationPanel的距離
+      sx={{ padding: 2, backgorund: '#F4F4F4', paddingBottom: { xs: '56px' } }}
+    >
       <Typography variant="body1">
         星期一至星期五(正常上班日) :AM 8:30 至 PM 20:00
       </Typography>
