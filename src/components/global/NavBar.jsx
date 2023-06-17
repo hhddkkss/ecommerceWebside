@@ -18,6 +18,7 @@ import { useTheme } from '@emotion/react'
 import AuthContext from '../../context/AuthContext'
 import { useContext } from 'react'
 import { useState } from 'react'
+import { useMediaQuery } from '@mui/material'
 
 const pages = ['比比精選', '比比論壇', '比比會員', '比比活動']
 
@@ -40,8 +41,10 @@ const Link = styled(LinkComponent)`
   color: #000;
 `
 
-function NavBar() {
+function NavBar({ cartItemQuantity }) {
   const theme = useTheme()
+  const match = useMediaQuery(theme.breakpoints.up('sm'))
+
   const [anchorElNav, setAnchorElNav] = React.useState(null)
   const { memberAuth, Logout } = useContext(AuthContext)
 
@@ -164,62 +167,70 @@ function NavBar() {
             ))}
           </Box>
 
-          <Box>
-            <IconButton
-              sx={{
-                p: 0,
-                color: '#fff',
-              }}
-            >
-              <StyledBadge badgeContent={4} color="orange">
-                <ShoppingCartIcon fontSize="medium" />
-              </StyledBadge>
-            </IconButton>
-            {memberAuth.authorized ? (
-              <>
+          {match && (
+            <Box>
+              <IconButton
+                sx={{
+                  p: 0,
+                  color: '#fff',
+                }}
+              >
+                <StyledBadge badgeContent={cartItemQuantity} color="orange">
+                  <ShoppingCartIcon fontSize="medium" />
+                </StyledBadge>
+              </IconButton>
+              {memberAuth.authorized ? (
+                <>
+                  <IconButton
+                    sx={{ color: '#fff', marginLeft: 3 }}
+                    onClick={handleOpenLogout}
+                  >
+                    <PersonIcon fontSize="medium"></PersonIcon>
+                  </IconButton>
+                  <Menu
+                    open={Boolean(anchorLogout)}
+                    onClose={handleCloseLogout}
+                    anchorEl={anchorLogout}
+                    // 控制Menu出現的位置
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'left',
+                    }}
+                    sx={{ width: '200px', ml: -2 }}
+                  >
+                    <MenuItem>
+                      <Typography fontFamily={'jf-openhuninn'}>
+                        {memberAuth.memberName}
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem onClick={handleUserLogout}>
+                      <Typography fontFamily={'jf-openhuninn'}>登出</Typography>
+                    </MenuItem>
+                  </Menu>
+                </>
+              ) : (
                 <IconButton
                   sx={{ color: '#fff', marginLeft: 3 }}
-                  onClick={handleOpenLogout}
+                  onClick={() => {
+                    navigation('/bee/login')
+                  }}
                 >
                   <PersonIcon fontSize="medium"></PersonIcon>
                 </IconButton>
-                <Menu
-                  open={Boolean(anchorLogout)}
-                  onClose={handleCloseLogout}
-                  anchorEl={anchorLogout}
-                  // 控制Menu出現的位置
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  sx={{ width: '200px', ml: -2 }}
-                >
-                  <MenuItem>
-                    <Typography fontFamily={'jf-openhuninn'}>
-                      {memberAuth.memberName}
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem onClick={handleUserLogout}>
-                    <Typography fontFamily={'jf-openhuninn'}>登出</Typography>
-                  </MenuItem>
-                </Menu>
-              </>
-            ) : (
-              <IconButton
-                sx={{ color: '#fff', marginLeft: 3 }}
-                onClick={() => {
-                  navigation('/bee/login')
-                }}
-              >
-                <PersonIcon fontSize="medium"></PersonIcon>
-              </IconButton>
-            )}
-          </Box>
+              )}
+            </Box>
+          )}
+
+          {!match && memberAuth.authorized && (
+            <Link style={{ color: '#fff' }} onClick={handleUserLogout}>
+              登出
+            </Link>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
