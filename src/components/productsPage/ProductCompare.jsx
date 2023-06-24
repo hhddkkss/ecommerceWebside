@@ -245,7 +245,7 @@ const ProductCompare = ({ sideBarExtend }) => {
           </Box>
           <Stack
             spacing={2}
-            sx={{ maxHeight: '400px', overflowY: 'scroll', mb: 2 }}
+            sx={{ maxHeight: '300px', overflowY: 'scroll', mb: 2 }}
           >
             {displayCompareList.map((v) => (
               // flexShrink: 0  => 防止卡片因為flex而縮放
@@ -338,6 +338,7 @@ const ProductCompare = ({ sideBarExtend }) => {
             detailOpen={detailOpen}
             compareType={compareType}
             comparingDetail={comparingDetail}
+            handleDeleteFromComparing={handleDeleteFromComparing}
           />
         </Box>
       </Modal>

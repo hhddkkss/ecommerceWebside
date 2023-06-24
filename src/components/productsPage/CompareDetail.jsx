@@ -13,6 +13,7 @@ import {
 import { ScrollSync, ScrollSyncPane } from 'react-scroll-sync'
 import CloseIcon from '@mui/icons-material/Close'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import RemoveIcon from '@mui/icons-material/Remove'
 
 const phoneTitle = ['作業系統', '處理器', '記憶體', '電池', '螢幕尺寸']
 const tabletTitle = [
@@ -41,6 +42,7 @@ const CompareDetail = ({
   detailOpen,
   comparingDetail,
   compareType,
+  handleDeleteFromComparing,
 }) => {
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.up('sm'))
@@ -49,11 +51,11 @@ const CompareDetail = ({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    width: '80%',
+    width: '60%',
     transform: 'translate(-50%, -50%)',
     bgcolor: '#d7d7d7',
     boxShadow: 24,
-    p: 4,
+    p: { xs: 0, sm: 4 },
     borderRadius: '5px',
     height: '800px',
     display: 'flex',
@@ -96,12 +98,10 @@ const CompareDetail = ({
           >
             <Box
               sx={{
-                height: '100%',
-                width: '200px',
                 display: 'flex',
                 flexFlow: 'column',
                 justifyContent: 'space-between',
-                borderRadius: 2,
+                borderRadius: { xs: 0, sm: 2 },
                 background: theme.normal.deepBlue,
               }}
             >
@@ -120,11 +120,10 @@ const CompareDetail = ({
                 <ScrollSyncPane>
                   <Stack
                     sx={{
-                      height: '300px',
+                      // height: '300px',
                       overflow: 'auto',
                       borderBottomLeftRadius: 4,
                       borderBottomRightRadius: 4,
-
                       '&::-webkit-scrollbar': {
                         width: '0.5rem',
                       },
@@ -139,7 +138,7 @@ const CompareDetail = ({
                   >
                     {phoneTitle.map((v, i) => (
                       <Typography
-                        variant="h6"
+                        variant="subtitle2"
                         key={i}
                         sx={{
                           bgcolor:
@@ -182,7 +181,7 @@ const CompareDetail = ({
                   >
                     {tabletTitle.map((v, i) => (
                       <Typography
-                        variant="h6"
+                        variant="subtitle2"
                         key={i}
                         sx={{
                           bgcolor:
@@ -192,7 +191,7 @@ const CompareDetail = ({
                           color: theme.normal.textColorWhite,
                           fontWeight: 300,
                           py: 2,
-                          minWidth: '140px',
+                          minWidth: '100px',
                         }}
                         align="center"
                       >
@@ -225,7 +224,7 @@ const CompareDetail = ({
                   >
                     {headPhoneTitle.map((v, i) => (
                       <Typography
-                        variant="h6"
+                        variant="subtitle2"
                         key={i}
                         sx={{
                           bgcolor:
@@ -260,15 +259,28 @@ const CompareDetail = ({
                 <Card
                   key={v.product_id}
                   sx={{
-                    width: '350px',
-                    flexShrink: '0',
+                    width: '250px',
                     display: 'flex',
                     flexFlow: 'column',
                     justifyContent: 'space-between',
                     pt: 2,
+                    borderBottomLeftRadius: { xs: 0, sm: 4 },
+                    position: 'relative',
                   }}
                 >
-                  <Box sx={{ flexGrow: '1' }}>
+                  <IconButton
+                    sx={{
+                      width: '50px',
+                      height: '50px',
+                      position: 'absolute',
+                      right: 0,
+                      top: 0,
+                    }}
+                    onClick={() => handleDeleteFromComparing(v.product_id)}
+                  >
+                    <RemoveIcon />
+                  </IconButton>
+                  <Box>
                     <Box
                       sx={{
                         display: 'flex',
@@ -281,17 +293,17 @@ const CompareDetail = ({
                         component="img"
                         title={v.product_name}
                         sx={{
-                          width: '200px',
-                          height: '200px',
+                          width: { xs: '100px', md: '200px' },
+                          height: { xs: '100px', md: '200px' },
                           objectFit: 'cover',
                         }}
                       />
                     </Box>
 
                     <Typography
-                      variant="h5"
+                      variant="subtitle2"
                       align="center"
-                      sx={{ mb: 2, height: '80px', p: 2 }}
+                      sx={{ mb: 4, minHeight: '120px', p: 2 }}
                     >
                       {v.product_name}
                     </Typography>
@@ -308,9 +320,8 @@ const CompareDetail = ({
                     <ScrollSyncPane>
                       <Stack
                         sx={{
-                          height: '300px',
+                          // height: '300px',
                           overflow: 'auto',
-                          flexGrow: '0',
                           '&::-webkit-scrollbar': {
                             display: 'none',
                           },
@@ -325,7 +336,7 @@ const CompareDetail = ({
                         }}
                       >
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.wordGray,
                             color: theme.normal.textColorWhite,
@@ -337,7 +348,7 @@ const CompareDetail = ({
                           {v.operation_system}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.deepBlue,
                             color: theme.normal.textColorWhite,
@@ -349,7 +360,7 @@ const CompareDetail = ({
                           {v.prcessor}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.wordGray,
 
@@ -362,7 +373,7 @@ const CompareDetail = ({
                           {v.ROM}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.deepBlue,
                             color: theme.normal.textColorWhite,
@@ -374,7 +385,7 @@ const CompareDetail = ({
                           {v.battery}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.wordGray,
 
@@ -410,7 +421,7 @@ const CompareDetail = ({
                         }}
                       >
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.wordGray,
                             color: theme.normal.textColorWhite,
@@ -422,7 +433,7 @@ const CompareDetail = ({
                           {v.operation_system}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.deepBlue,
                             color: theme.normal.textColorWhite,
@@ -434,7 +445,7 @@ const CompareDetail = ({
                           {v.processor}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.wordGray,
 
@@ -447,7 +458,7 @@ const CompareDetail = ({
                           {v.ram_rom}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.deepBlue,
                             color: theme.normal.textColorWhite,
@@ -459,7 +470,7 @@ const CompareDetail = ({
                           {v.battery}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.wordGray,
 
@@ -472,7 +483,7 @@ const CompareDetail = ({
                           {v.screen_size}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.deepBlue,
 
@@ -485,7 +496,7 @@ const CompareDetail = ({
                           {v.cam_front || '無'}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.wordGray,
 
@@ -498,7 +509,7 @@ const CompareDetail = ({
                           {v.cam_back}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.deepBlue,
 
@@ -534,7 +545,7 @@ const CompareDetail = ({
                         }}
                       >
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.wordGray,
                             color: theme.normal.textColorWhite,
@@ -546,7 +557,7 @@ const CompareDetail = ({
                           {v.transparen_mode == 0 ? '無' : '有'}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.deepBlue,
                             color: theme.normal.textColorWhite,
@@ -558,7 +569,7 @@ const CompareDetail = ({
                           {v.ANC == 0 ? '無' : '有'}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.wordGray,
 
@@ -571,7 +582,7 @@ const CompareDetail = ({
                           {v.CVC}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.deepBlue,
                             color: theme.normal.textColorWhite,
@@ -583,7 +594,7 @@ const CompareDetail = ({
                           {v.power_usage_time}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.wordGray,
 
@@ -596,7 +607,7 @@ const CompareDetail = ({
                           {v.low_latency == 1 ? '有' : '無'}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.deepBlue,
                             color: theme.normal.textColorWhite,
@@ -608,7 +619,7 @@ const CompareDetail = ({
                           {v.Qi == 1 ? '有' : '無'}
                         </Typography>
                         <Typography
-                          variant="h6"
+                          variant="subtitle2"
                           sx={{
                             bgcolor: theme.normal.wordGray,
 
