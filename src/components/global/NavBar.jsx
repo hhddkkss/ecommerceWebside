@@ -15,10 +15,10 @@ import { Link as LinkComponent, useNavigate } from 'react-router-dom'
 import styled from '@emotion/styled'
 import PersonIcon from '@mui/icons-material/Person'
 import { useTheme } from '@emotion/react'
-import AuthContext from '../../context/AuthContext'
-import { useContext } from 'react'
 import { useState } from 'react'
 import { useMediaQuery } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { setLogout } from '../../redux/userSlice'
 
 const pages = ['比比精選', '比比論壇', '比比會員', '比比活動']
 
@@ -44,9 +44,11 @@ const Link = styled(LinkComponent)`
 function NavBar({ cartItemQuantity }) {
   const theme = useTheme()
   const match = useMediaQuery(theme.breakpoints.up('sm'))
+  const dispatch = useDispatch()
+  const profile = useSelector((state) => state.user.profile)
+  const { authorized, memberName } = profile
 
   const [anchorElNav, setAnchorElNav] = React.useState(null)
-  const { memberAuth, Logout } = useContext(AuthContext)
 
   const [anchorLogout, setAnchorLogout] = useState(null)
 
@@ -67,7 +69,8 @@ function NavBar({ cartItemQuantity }) {
 
   const handleUserLogout = () => {
     setAnchorLogout(null)
-    Logout()
+    localStorage.removeItem('beebeeMemberAuth')
+    dispatch(setLogout())
   }
 
   const navigation = useNavigate()
@@ -179,7 +182,7 @@ function NavBar({ cartItemQuantity }) {
                   <ShoppingCartIcon fontSize="medium" />
                 </StyledBadge>
               </IconButton>
-              {memberAuth.authorized ? (
+              {authorized ? (
                 <>
                   <IconButton
                     sx={{ color: '#fff', marginLeft: 3 }}
@@ -205,7 +208,7 @@ function NavBar({ cartItemQuantity }) {
                   >
                     <MenuItem>
                       <Typography fontFamily={'jf-openhuninn'}>
-                        {memberAuth.memberName}
+                        {memberName}
                       </Typography>
                     </MenuItem>
                     <MenuItem onClick={handleUserLogout}>
@@ -226,7 +229,7 @@ function NavBar({ cartItemQuantity }) {
             </Box>
           )}
 
-          {!match && memberAuth.authorized && (
+          {!match && authorized && (
             <Link style={{ color: '#fff' }} onClick={handleUserLogout}>
               登出
             </Link>

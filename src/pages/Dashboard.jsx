@@ -27,6 +27,7 @@ const Dashboard = () => {
     <>
       <NavBar cartItemQuantity={cartItemQuantity} />
       <Outlet />
+      {/* 手機版的控制按鈕 */}
       {!match && <NavigationPanel cartItemQuantity={cartItemQuantity} />}
     </>
   )

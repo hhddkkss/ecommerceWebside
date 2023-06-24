@@ -14,10 +14,11 @@ import {
   Button,
   useMediaQuery,
 } from '@mui/material'
-import { useContext, useState } from 'react'
-import AuthContext from '../../context/AuthContext'
+import { useState } from 'react'
 import { loginApi } from '../../utils/LoginHelper'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { setLogin } from '../../redux/userSlice'
 
 const inputFieldStyle = {
   mb: 5,
@@ -27,9 +28,10 @@ const LoginComponent = ({ setModalOpen }) => {
   const theme = useTheme()
   const match = useMediaQuery(theme.breakpoints.up('md'))
   const navigation = useNavigate()
+  const profile = useSelector((state) => state.user.profile)
+  const { authorized } = profile
 
-  const { setMemberAuth, memberAuth } = useContext(AuthContext)
-  const { authorized } = memberAuth
+  const dispatch = useDispatch()
 
   const [visibility, setVisibility] = useState(false)
 
@@ -68,6 +70,7 @@ const LoginComponent = ({ setModalOpen }) => {
             localStorage.setItem(
               'beebeeMemberAuth',
               JSON.stringify({
+                authorized: true,
                 token: r.token,
                 memberId: r.memberId,
                 memberEmail: r.memberEmail,
@@ -75,15 +78,16 @@ const LoginComponent = ({ setModalOpen }) => {
               })
             )
 
-            //後端傳回的使用者資料 存至AuthContext
-            //當memberAuth改變時 AuthContext 會執行useEffect 重新抓localStorage的值
-            setMemberAuth({
-              authorized: true,
-              memberId: r.memberId,
-              memberEmail: r.memberEmail,
-              memberName: r.memberName,
-              token: r.token,
-            })
+            //redux 存狀態
+
+            dispatch(
+              setLogin({
+                memberId: r.memberId,
+                memberEmail: r.memberEmail,
+                memberName: r.memberName,
+                token: r.token,
+              })
+            )
 
             //提示視窗開啟
             setModalOpen(true)
