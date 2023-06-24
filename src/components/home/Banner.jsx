@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 const Container = styled(Box)`
   position: relative;
   height: 690px;
-  background: url('/public/images/Home/homechangeafter.png');
+  background: url('/images/Home/homechangeafter.png');
   background-size: cover;
   margin-bottom: 1rem;
   @media screen and (max-width: 800px) {

@@ -5,7 +5,7 @@
 //=> const { memberAuth } = useContext(AuthContext)
 //裡頭即有 memberEmail,memberId,token
 
-import { createContext, useState, useEffect, useMemo } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom' //頁面轉向hook
 
 const AuthContext = createContext({})
@@ -17,7 +17,7 @@ export const AuthContextProvider = function ({ children }) {
   //預設未登入狀態
   const unAuth = {
     authorized: false,
-    memberId: 0,
+    memberId: '',
     memberEmail: '',
     memberName: '',
     token: '',

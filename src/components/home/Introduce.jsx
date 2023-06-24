@@ -32,7 +32,7 @@ const Introduce = () => {
         display: 'flex',
         margin: '0 auto 2rem',
         background:
-          'linear-gradient(105deg,#fdf5e6 30% , transparent 50%) center center / 100% 100%,url("/public/images/Home/susan-wilkinson-oscknq59n2o-unsplash.jpg") right center / 100% 100% ',
+          'linear-gradient(105deg,#fdf5e6 30% , transparent 50%) center center / 100% 100%,url("/images/Home/susan-wilkinson-oscknq59n2o-unsplash.jpg") right center / 100% 100% ',
       }}
     >
       <Container>
