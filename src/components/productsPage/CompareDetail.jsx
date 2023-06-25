@@ -260,6 +260,8 @@ const CompareDetail = ({
                   key={v.product_id}
                   sx={{
                     width: '250px',
+                    //防止卡片變形 在手機版不伸縮 維持250px
+                    flexShrink: '0',
                     display: 'flex',
                     flexFlow: 'column',
                     justifyContent: 'space-between',

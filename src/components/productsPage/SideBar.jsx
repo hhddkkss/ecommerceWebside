@@ -33,8 +33,15 @@ const SideBarButton = styled.button`
   font-size: 16px;
   padding: 2px;
   z-index: 10;
+  opacity: 0.8;
+  @media screen and (max-width: 1200px) {
+    top: 68px;
+  }
+  @media screen and (max-width: 900px) {
+    top: 64px;
+  }
   @media screen and (max-width: 600px) {
-    height: 80px;
+    top: 56px;
   }
 `
 

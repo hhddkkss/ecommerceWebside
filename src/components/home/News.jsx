@@ -47,7 +47,7 @@ const News = () => {
         新鮮事
       </Typography>
       <Box sx={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <Grid container spacing={2} alignItems="stretch">
+        <Grid container spacing={6} alignItems="stretch">
           {newsData.map((item) => (
             <Grid item key={item.article_id} sm={4} xs={12}>
               <Card
@@ -66,12 +66,12 @@ const News = () => {
                 <Box sx={{ overflow: 'hidden' }}>
                   <CardMedia
                     sx={{
-                      height: '300px',
+                      height: '200px',
                       objectFit: 'cover',
                       transition: 'transform 0.5s ease-in',
                       verticalAlign: 'middle',
                       clipPath:
-                        'polygon(50% 0%, 100% 0, 100% 50%, 50% 100%, 50% 100%, 0 50%, 0 0)',
+                        'polygon(0 70%, 0 0, 100% 0, 100% 70%, 50% 85%)',
                     }}
                     component="img"
                     image={'/images/article/' + item.article_pic_main}
@@ -87,13 +87,13 @@ const News = () => {
                     gutterBottom
                     variant="h5"
                     component="div"
-                    style={{
+                    sx={{
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       display: '-webkit-box',
                       WebkitLineClamp: '1',
                       WebkitBoxOrient: 'vertical',
-                      marginBottom: '2rem',
+                      mb: 2,
                     }}
                   >
                     {item.title}
@@ -101,19 +101,19 @@ const News = () => {
                   <Typography
                     variant="body2"
                     color="text.secondary"
-                    style={{
+                    sx={{
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       display: '-webkit-box',
                       WebkitLineClamp: '5',
                       WebkitBoxOrient: 'vertical',
-                      marginBottom: '2rem',
+                      marginBottom: 2,
                     }}
                   >
                     {item.content_1}
                   </Typography>
                   <Typography
-                    variant="h6"
+                    variant="subtitle2"
                     color="text.primary"
                     sx={{ textAlign: 'right' }}
                   >

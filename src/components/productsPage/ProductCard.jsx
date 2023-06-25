@@ -16,11 +16,16 @@ const MyProductCard = styled.div`
   position: relative;
   border-left: 1px solid #000;
   border-right: 1px solid #000;
+
   &:hover {
     box-shadow: 1px 1px 10px #000;
   }
   &:hover > div {
     opacity: 1;
+  }
+  @media screen and (max-width: 600px) {
+    width: 300px;
+    margin: 0 auto;
   }
 `
 const ProductCardMask = styled.div`
@@ -32,10 +37,7 @@ const ProductCardMask = styled.div`
   opacity: 0;
   transition: 0.25s ease-in;
   z-index: 3;
-
   @media screen and (max-width: 600px) {
-    padding-left: 1rem;
-    padding-right: 1rem;
     opacity: 1;
     background-color: transparent;
   }
