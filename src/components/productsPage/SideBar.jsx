@@ -27,7 +27,7 @@ const SideBarButton = styled.button`
   left: ${({ sideBarExtend }) => (sideBarExtend ? '-250px' : '0')};
   border: none;
   width: 32px;
-  height: 200px;
+  height: 80px;
   transition: left 0.3s ease-in;
   color: var(--deepBlue);
   font-size: 16px;

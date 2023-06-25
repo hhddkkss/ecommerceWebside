@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
-import { Box, useTheme } from '@mui/material'
-import SortIcon from '@mui/icons-material/Sort'
+import { Box } from '@mui/material'
 
 const Container = styled.div`
   filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
@@ -65,8 +64,6 @@ function productTypeNumToWord(productType) {
 }
 
 const TitleAndPath = ({ sideBarExtend, brand, productType, sortType }) => {
-  const theme = useTheme()
-
   return (
     <Container sideBarExtend={sideBarExtend}>
       <Title>
