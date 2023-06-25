@@ -1,8 +1,5 @@
 import { Modal, Box, Typography } from '@mui/material'
-import AuthContext from '../../context/AuthContext'
-import { useContext } from 'react'
-
-
+import { useSelector } from 'react-redux'
 
 const ModalStyle = {
   position: 'absolute',
@@ -22,8 +19,7 @@ const TextStyle = {
 }
 
 const LoginModal = ({ modalOpen }) => {
-  const { memberAuth } = useContext(AuthContext)
-  const { memberName } = memberAuth
+  const { memberName } = useSelector((state) => state.user.profile)
 
   return (
     <Modal sx={ModalStyle} open={modalOpen}>

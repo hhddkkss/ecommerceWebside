@@ -5,8 +5,8 @@ import Dashboard from './pages/Dashboard'
 import Home from './pages/Home'
 import { ThemeProvider, createTheme } from '@mui/material'
 import { CompareContextProvider } from './context/CompareContext'
-import { AuthContextProvider } from './context/AuthContext'
 import Login from './pages/Login'
+import Cart from './pages/Cart'
 
 const theme = createTheme({
   normal: {
@@ -53,17 +53,16 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
-        <AuthContextProvider>
-          <CompareContextProvider>
-            <Routes>
-              <Route path="/bee" element={<Dashboard />}>
-                <Route path="home" element={<Home />}></Route>
-                <Route path="product" element={<Product />}></Route>
-                <Route path="login" element={<Login />}></Route>
-              </Route>
-            </Routes>
-          </CompareContextProvider>
-        </AuthContextProvider>
+        <CompareContextProvider>
+          <Routes>
+            <Route path="/bee" element={<Dashboard />}>
+              <Route path="home" element={<Home />}></Route>
+              <Route path="product" element={<Product />}></Route>
+              <Route path="login" element={<Login />}></Route>
+              <Route path="cart" element={<Cart />}></Route>
+            </Route>
+          </Routes>
+        </CompareContextProvider>
       </ThemeProvider>
     </Router>
   )

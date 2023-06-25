@@ -41,12 +41,14 @@ const Link = styled(LinkComponent)`
   color: #000;
 `
 
-function NavBar({ cartItemQuantity }) {
+function NavBar() {
   const theme = useTheme()
   const match = useMediaQuery(theme.breakpoints.up('sm'))
   const dispatch = useDispatch()
   const profile = useSelector((state) => state.user.profile)
   const { authorized, memberName } = profile
+
+  const cartItem = useSelector((state) => state.cart.cartItem)
 
   const [anchorElNav, setAnchorElNav] = React.useState(null)
 
@@ -177,8 +179,9 @@ function NavBar({ cartItemQuantity }) {
                   p: 0,
                   color: '#fff',
                 }}
+                onClick={() => navigation('/bee/cart')}
               >
-                <StyledBadge badgeContent={cartItemQuantity} color="orange">
+                <StyledBadge badgeContent={cartItem.length} color="orange">
                   <ShoppingCartIcon fontSize="medium" />
                 </StyledBadge>
               </IconButton>
