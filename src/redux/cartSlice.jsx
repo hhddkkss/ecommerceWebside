@@ -48,6 +48,7 @@ const cartSlice = createSlice({
 const fetchCartData = async (member_id) => {
   const res = await axios.get(`http://localhost:3003/cart/api/${member_id}`)
   console.log(res, 'res')
+
   if (!res.data) {
     throw new Error('fetch fail!')
   }
@@ -58,11 +59,16 @@ const fetchCartData = async (member_id) => {
 //得到購物車資料
 export const fetchUserCart = (member_id) => {
   return async (dispatch) => {
+    if (!member_id) {
+      dispatch(cartAction.setCartItem([]))
+      return
+    }
+
     try {
       const cartData = await fetchCartData(member_id)
       dispatch(cartAction.setCartItem(cartData))
 
-      const totalPrice = cartData.reduce(
+      const totalPrice = cartData?.reduce(
         (init, item) => init + +item.product_price * +item.quantity,
         0
       )
