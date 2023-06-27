@@ -28,6 +28,7 @@ import {
   fetchComparingDetails,
 } from '../../utils/productsHelper'
 import CompareDetail from './CompareDetail'
+import UpgradeOutlinedIcon from '@mui/icons-material/UpgradeOutlined'
 
 const buttonOption = ['手機', '平板', '耳機']
 
@@ -53,6 +54,15 @@ const MyButton = styled.button`
   &:active {
     box-shadow: 0px 0px 0px 2px gray;
   }
+`
+const UpButton = styled(MyButton)`
+  filter: ${({ sideBarExtend }) => sideBarExtend && 'blur(5px)'};
+  height: 35px;
+  width: 35px;
+  bottom: 30%;
+  right: 0;
+  border-radius: 50%;
+  background-color: rgba(35, 58, 102, 0.8);
 `
 
 const Circle = styled.div`
@@ -194,6 +204,12 @@ const ProductCompare = ({ sideBarExtend }) => {
 
   return (
     <>
+      {!matches && (
+        <UpButton onClick={() => window.scroll(0, 0)}>
+          <UpgradeOutlinedIcon fontSize="large" />
+        </UpButton>
+      )}
+
       <MyButton
         theme={theme}
         onClick={handleOpen}
@@ -245,7 +261,11 @@ const ProductCompare = ({ sideBarExtend }) => {
           </Box>
           <Stack
             spacing={2}
-            sx={{ maxHeight: '300px', overflowY: 'scroll', mb: 2 }}
+            sx={{
+              maxHeight: '300px',
+              overflowY: 'scroll',
+              mb: 2,
+            }}
           >
             {displayCompareList.map((v) => (
               // flexShrink: 0  => 防止卡片因為flex而縮放
