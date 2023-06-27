@@ -7,6 +7,10 @@ import { ThemeProvider, createTheme } from '@mui/material'
 import { CompareContextProvider } from './context/CompareContext'
 import Login from './pages/Login'
 import Cart from './pages/Cart'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getProduct } from './redux/productSlice'
+import { fetchUserCart } from './redux/cartSlice'
 
 const theme = createTheme({
   normal: {
@@ -32,6 +36,7 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
+      'jf-openhuninn',
       '-apple-system',
       'BlinkMacSystemFont',
       '"Segoe UI"',
@@ -43,13 +48,21 @@ const theme = createTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
       'Righteous',
-      'jf-openhuninn',
       'creamfont',
     ].join(','),
   },
 })
 
 function App() {
+  const { memberId } = useSelector((state) => state.user.profile)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    //每次去抓產品資訊
+    dispatch(getProduct())
+    dispatch(fetchUserCart(memberId))
+  }, [memberId])
+
   return (
     <Router>
       <ThemeProvider theme={theme}>
