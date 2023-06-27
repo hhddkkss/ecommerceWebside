@@ -8,6 +8,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { ReactComponent as CompareButtonYellow } from '../../assets/svg/CompareButtonYellow.svg'
 import CompareContext from '../../context/CompareContext'
 import { addToCompareList, getCompareList } from '../../utils/productsHelper'
+import { addItemToCart } from '../../redux/cartSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 const MyProductCard = styled.div`
   display: flex;
@@ -94,6 +96,8 @@ const ProductPrice = styled.div`
 
 const ProductCard = (props) => {
   const { product, handleMsgOpen } = props
+  const dispatch = useDispatch()
+  const { memberId } = useSelector((state) => state.user.profile)
 
   const { myCompareList, setMyCompareList } = useContext(CompareContext)
 
@@ -111,6 +115,10 @@ const ProductCard = (props) => {
     setMyCompareList(newCompareList)
     //提示訊息
     handleMsgOpen()
+  }
+
+  const handleAddToCart = (memberId, product_id) => {
+    dispatch(addItemToCart(memberId, product_id))
   }
 
   return (
@@ -143,6 +151,7 @@ const ProductCard = (props) => {
             cursor: 'pointer',
             fontSize: '20px',
           }}
+          onClick={() => handleAddToCart(memberId, product.product_id)}
         />
         <CompareButtonYellow
           style={{
