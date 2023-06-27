@@ -5,16 +5,16 @@ import ProductDisplay from '../components/productsPage/ProductDisplay'
 import SideBar from '../components/productsPage/SideBar'
 import ProductCompare from '../components/productsPage/ProductCompare'
 import { Box } from '@mui/material'
+import NotLoginInfoModal from '../components/productsPage/NotLogInfoModal'
 import {
   sortProducts,
   searchProduct,
   filterProductByProductType,
   filterProductByBrand,
-  fetchProducts,
 } from '../utils/productsHelper'
 import { debounce } from '../utils/globalHelper'
-
 import styled from '@emotion/styled'
+import { useSelector } from 'react-redux'
 
 const Container = styled.div`
   display: flex;
@@ -29,7 +29,8 @@ const ProductArea = styled.div`
 `
 
 const Product = () => {
-  const [allProducts, setAllProducts] = useState([])
+  const allProducts = useSelector((state) => state.product.products)
+
   const [displayProducts, setDisplayProducts] = useState([])
   //第一步 先設定初始一頁要顯示幾個商品 並且給定loadMore為false
   const [visibleProductsAmount, setVisibleProductsAmount] = useState(25)
@@ -40,23 +41,12 @@ const Product = () => {
   const [brand, setBrand] = useState('全部品牌')
   const [productType, setProductType] = useState(0)
 
-  const getMyProduct = () =>
-    fetchProducts()
-      .then((res) => setAllProducts(res))
-      .catch((e) => {
-        throw new Error(e)
-      })
-
   const handleOutsideClick = (e) => {
     // 按下sideBar以外的地方 就會收合
     if (!e.target.closest('.sidebar-content') && sideBarExtend) {
       setSideBarExtend(false)
     }
   }
-
-  useEffect(() => {
-    getMyProduct()
-  }, [])
 
   //第二步  scrollTop + clientHeight = scrollHeight (現在頁面的高度)
   const handleScroll = () => {
@@ -97,6 +87,7 @@ const Product = () => {
   }, [allProducts, keyWord, sortType, productType, brand])
 
   const products = displayProducts.slice(0, visibleProductsAmount)
+
   const noMoreProducts = visibleProductsAmount > displayProducts.length
 
   //產品類別變更：品牌變為全部 關鍵字重置 顯示商品數重置
@@ -142,6 +133,7 @@ const Product = () => {
         </ProductArea>
       </Container>
       <ProductCompare sideBarExtend={sideBarExtend}></ProductCompare>
+      <NotLoginInfoModal />
     </Box>
   )
 }
