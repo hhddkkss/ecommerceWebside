@@ -11,6 +11,9 @@ const Title = styled.h2`
   margin-bottom: 4rem;
   font-weight: 600;
   font-size: 40px;
+  &::first-letter {
+    font-size: 100px;
+  }
   @media screen and (max-width: 1000px) {
     padding-left: 1rem;
   }
@@ -30,7 +33,7 @@ const Introduce = () => {
       sx={{
         padding: 2,
         display: 'flex',
-        margin: '0 auto 2rem',
+        margin: '0rem auto 2rem',
         background:
           'linear-gradient(105deg,#fdf5e6 30% , transparent 50%) center center / 100% 100%,url("/images/Home/susan-wilkinson-oscknq59n2o-unsplash.jpg") right center / 100% 100% ',
       }}
