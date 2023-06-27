@@ -112,10 +112,12 @@ const LoginComponent = ({ setModalOpen }) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        background:
-          'no-repeat  url("/public/images/home/tomasz-gawlowski-YDZPdqv3FcA-unsplash.jpg")top left, 100% 100%',
         backgroundSize: 'cover',
         filter: 'contrast(80%)',
+      }}
+      style={{
+        background:
+          'no-repeat  url("/src/assets/images/tomasz-gawlowski-YDZPdqv3FcA-unsplash.jpg")top left, 100% 100%',
       }}
     >
       {!authorized && (
