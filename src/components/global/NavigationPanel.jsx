@@ -19,7 +19,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const NavigationPanel = () => {
   const navigation = useNavigate()
-  const { authorized } = useSelector((state) => state.user.profile)
+  const { authorized, memberId } = useSelector((state) => state.user.profile)
   const cartItem = useSelector((state) => state.cart.cartItem)
 
   return (
@@ -34,7 +34,7 @@ const NavigationPanel = () => {
         />
         <BottomNavigationAction label="收藏" icon={<FavoriteIcon />} />
         <BottomNavigationAction
-          label="會員中心"
+          label={memberId ? '會員中心' : '登入'}
           icon={
             authorized ? (
               // 導向會員資料頁面
