@@ -205,7 +205,10 @@ const ProductCompare = ({ sideBarExtend }) => {
   return (
     <>
       {!matches && (
-        <UpButton onClick={() => window.scroll(0, 0)}>
+        <UpButton
+          onClick={() => window.scroll(0, 0)}
+          sideBarExtend={sideBarExtend}
+        >
           <UpgradeOutlinedIcon fontSize="large" />
         </UpButton>
       )}

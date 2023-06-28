@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux'
 const Container = styled.div`
   display: flex;
   gap: 2rem;
+  padding: 1rem;
   @media screen and (max-width: 768px) {
     gap: 1rem;
   }

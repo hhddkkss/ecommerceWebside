@@ -1,12 +1,21 @@
 import styled from '@emotion/styled'
 import { fetchPopularProduct } from '../../utils/homeHelper'
-import { Box, CardMedia, Typography, Card, Grid } from '@mui/material'
+import {
+  Box,
+  CardMedia,
+  Typography,
+  Card,
+  Grid,
+  useMediaQuery,
+} from '@mui/material'
 import { Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { useEffect, useState } from 'react'
+import { useTheme } from '@emotion/react'
 
 const PopularProduct = () => {
+  const theme = useTheme()
   const [popularProductData, setPopularProductData] = useState([])
   const [mobileMode, setMobileMode] = useState(false)
   const getMyPopularProduct = () =>
@@ -15,6 +24,8 @@ const PopularProduct = () => {
       .catch((e) => {
         throw new Error(e)
       })
+
+  const isMobile = useMediaQuery(theme.breakpoints.up('sm'))
 
   useEffect(() => {
     const handleResize = () => {
@@ -53,7 +64,7 @@ const PopularProduct = () => {
         熱門推薦商品
       </Typography>
 
-      {mobileMode ? (
+      {!isMobile ? (
         <Swiper
           pagination={{
             clickable: true,
@@ -71,6 +82,11 @@ const PopularProduct = () => {
                   sx={{
                     height: '450px',
                     padding: '1rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    '&>p': {
+                      flexGrow: 0,
+                    },
                   }}
                   raised={true}
                 >
@@ -87,7 +103,7 @@ const PopularProduct = () => {
                       minimumFractionDigits: 0,
                     })}
                   </Typography>
-                  <Box sx={{ aspectRatio: 1 / 1 }}>
+                  <Box sx={{ flexGrow: 1 }}>
                     <CardMedia
                       src={`/images/${item.product_pic[0]}`}
                       sx={{
@@ -106,12 +122,7 @@ const PopularProduct = () => {
         </Swiper>
       ) : (
         <Box sx={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <Grid
-            container
-            spacing={2}
-            align-items="stretch"
-  
-          >
+          <Grid container spacing={2} align-items="stretch">
             {popularProductData.map((item, i) => {
               return (
                 <Grid
@@ -126,6 +137,11 @@ const PopularProduct = () => {
                       padding: '1rem',
                       cursor: 'pointer',
                       transition: 'all 0.2s ease-in',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      '&>p': {
+                        flexGrow: 0,
+                      },
                       '&:hover': {
                         transform: 'scale(1.01)',
                         boxShadow: '2px 4px 16px rgba(0,0,0,.16);',
@@ -146,7 +162,7 @@ const PopularProduct = () => {
                         minimumFractionDigits: 0,
                       })}
                     </Typography>
-                    <Box sx={{ minWidth: '150px' }}>
+                    <Box sx={{ flexGrow: 1 }}>
                       <CardMedia
                         src={`/images/${item.product_pic[0]}`}
                         sx={{
