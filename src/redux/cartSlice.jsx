@@ -39,6 +39,7 @@ const cartSlice = createSlice({
     setCartDeleteInfoModalClose(state, action) {
       state.deleteInfoModal = action.payload
     },
+    //上一個點下去的商品紀錄
     setClickItem(state, action) {
       state.clickItem = { ...action.payload }
     },
@@ -47,7 +48,7 @@ const cartSlice = createSlice({
 
 const fetchCartData = async (member_id) => {
   const res = await axios.get(`http://localhost:3003/cart/api/${member_id}`)
-  console.log(res, 'res')
+  // console.log(res, 'res')
 
   if (!res.data) {
     throw new Error('fetch fail!')

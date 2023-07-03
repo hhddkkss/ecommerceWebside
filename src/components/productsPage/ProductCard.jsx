@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useContext, useState } from 'react'
+import { useContext } from 'react'
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
@@ -99,7 +99,7 @@ const ProductCard = (props) => {
   const dispatch = useDispatch()
   const { memberId } = useSelector((state) => state.user.profile)
 
-  const { myCompareList, setMyCompareList } = useContext(CompareContext)
+  const { setMyCompareList } = useContext(CompareContext)
 
   const handleAddToCompareList = (
     itemPid,

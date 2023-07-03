@@ -12,7 +12,7 @@ import {
   filterProductByProductType,
   filterProductByBrand,
 } from '../utils/productsHelper'
-import { debounce } from '../utils/globalHelper'
+import { throttle } from '../utils/globalHelper'
 import styled from '@emotion/styled'
 import { useSelector } from 'react-redux'
 
@@ -53,13 +53,13 @@ const Product = () => {
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement
 
-    if (scrollTop + clientHeight >= scrollHeight - 300) {
+    if (scrollTop + clientHeight + 300 > scrollHeight) {
       setLoadMore(true)
     }
   }
   //第三步 使用useEffect 偵聽scroll事件
   useEffect(() => {
-    window.addEventListener('scroll', debounce(handleScroll))
+    window.addEventListener('scroll', throttle(handleScroll))
   }, [])
 
   //第四步 當loadMore的值改變時 要增加顯示的商品數量
