@@ -17,7 +17,7 @@ import { useTheme } from '@emotion/react'
 const PopularProduct = () => {
   const theme = useTheme()
   const [popularProductData, setPopularProductData] = useState([])
-  const [mobileMode, setMobileMode] = useState(false)
+
   const getMyPopularProduct = () =>
     fetchPopularProduct()
       .then((res) => setPopularProductData(res))
@@ -26,22 +26,7 @@ const PopularProduct = () => {
       })
 
   const isMobile = useMediaQuery(theme.breakpoints.up('sm'))
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 576) {
-        setMobileMode(true)
-      } else {
-        setMobileMode(false)
-      }
-    }
-
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [mobileMode])
+  const isMd = useMediaQuery(theme.breakpoints.up('md'))
 
   useEffect(() => {
     getMyPopularProduct()
@@ -80,7 +65,7 @@ const PopularProduct = () => {
               >
                 <Box
                   sx={{
-                    height: '450px',
+                    height: '350px',
                     padding: '1rem',
                     display: 'flex',
                     flexDirection: 'column',
@@ -93,10 +78,10 @@ const PopularProduct = () => {
                   <Typography variant="body1" sx={{ color: 'red' }}>
                     Recommend
                   </Typography>
-                  <Typography variant="h5" color="text.secondary">
+                  <Typography variant="h6" color="text.secondary">
                     {item.product_name}
                   </Typography>
-                  <Typography variant="h6">
+                  <Typography variant="h6" color="error">
                     {(+item.product_price).toLocaleString('zh-TW', {
                       style: 'currency',
                       currency: 'NTD',
@@ -149,13 +134,19 @@ const PopularProduct = () => {
                     }}
                     raised={true}
                   >
-                    <Typography variant="body1" sx={{ color: 'red' }}>
+                    <Typography
+                      variant={isMd ? 'subtitle' : 'body1'}
+                      sx={{ color: 'red', fontSize: '12px' }}
+                    >
                       Recommend
                     </Typography>
-                    <Typography variant="h5" color="text.secondary">
+                    <Typography
+                      variant={isMd ? 'h6' : 'body1'}
+                      color="text.secondary"
+                    >
                       {item.product_name}
                     </Typography>
-                    <Typography variant="h6">
+                    <Typography variant={isMd ? 'h6' : 'body1'} color="error">
                       {(+item.product_price).toLocaleString('zh-TW', {
                         style: 'currency',
                         currency: 'NTD',
