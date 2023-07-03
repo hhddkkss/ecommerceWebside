@@ -5,32 +5,36 @@ import BoltIcon from '@mui/icons-material/Bolt'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 
+const IconStyle = {
+  fontSize: '50px',
+}
+
 const msg = [
   {
     content: '方便',
     english: 'Convenient',
-    icon: <CheckIcon sx={{ fontSize: '50px' }}></CheckIcon>,
+    icon: <CheckIcon sx={{ ...IconStyle }} />,
   },
   {
     content: '快速',
     english: 'Fast',
-    icon: <BoltIcon sx={{ fontSize: '50px' }}></BoltIcon>,
+    icon: <BoltIcon sx={{ ...IconStyle }} />,
   },
   {
     content: '低價',
     english: 'Lower Price',
-    icon: <LocalOfferIcon sx={{ fontSize: '50px' }}></LocalOfferIcon>,
+    icon: <LocalOfferIcon sx={{ ...IconStyle }} />,
   },
   {
     content: '質感',
     english: 'Texture',
-    icon: <StarBorderIcon sx={{ fontSize: '50px' }}></StarBorderIcon>,
+    icon: <StarBorderIcon sx={{ ...IconStyle }} />,
   },
 ]
 
 const MiddleMsg = () => {
   const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.up('xs'))
+  const isSm = useMediaQuery(theme.breakpoints.up('sm'))
 
   return (
     <Grid container sx={{ maxWidth: '1200px', margin: '0 auto 2rem' }}>
@@ -42,15 +46,22 @@ const MiddleMsg = () => {
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
-              gap: '1rem',
+              gap: '0.6rem',
               borderRight: i !== msg.length - 1 ? '1px solid gray' : 'none',
             }}
           >
             {item.icon}
-            <Typography variant="h4" sx={{ color: 'var(--deepBlue)' }}>
+            <Typography
+              variant={!isSm ? 'h5' : 'h4'}
+              sx={{ color: 'var(--deepBlue)' }}
+            >
               {item.content}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography
+              variant={!isSm ? 'caption' : 'body1'}
+              color="text.secondary"
+              align="center"
+            >
               {item.english}
             </Typography>
           </Box>
