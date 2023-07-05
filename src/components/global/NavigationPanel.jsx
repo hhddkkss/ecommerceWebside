@@ -30,7 +30,7 @@ const NavigationPanel = () => {
         <BottomNavigationAction
           label="首頁"
           icon={<HomeIcon />}
-          onClick={() => navigation('/bee/home')}
+          onClick={() => navigation('/bee')}
         />
         <BottomNavigationAction label="收藏" icon={<FavoriteIcon />} />
         <BottomNavigationAction

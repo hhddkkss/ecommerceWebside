@@ -94,7 +94,7 @@ const LoginComponent = ({ setModalOpen }) => {
 
             //跳轉至首頁
             setTimeout(() => {
-              navigation('/bee/home')
+              navigation('/bee')
             }, 2000)
           } else {
             setLoginError(r.error)

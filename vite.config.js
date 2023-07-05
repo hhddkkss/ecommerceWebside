@@ -4,5 +4,7 @@ import svgr from 'vite-plugin-svgr'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // run dev 後指向首頁
+  base: '/bee',
   plugins: [react(), svgr()],
 })

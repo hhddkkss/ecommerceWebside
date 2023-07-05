@@ -69,7 +69,7 @@ function App() {
         <CompareContextProvider>
           <Routes>
             <Route path="/bee" element={<Dashboard />}>
-              <Route path="home" element={<Home />}></Route>
+              <Route index element={<Home />}></Route>
               <Route path="product" element={<Product />}></Route>
               <Route path="login" element={<Login />}></Route>
               <Route path="cart" element={<Cart />}></Route>

@@ -85,7 +85,7 @@ function NavBar() {
             variant="h6"
             noWrap
             component="a"
-            onClick={() => navigation('/bee/home')}
+            onClick={() => navigation('/bee')}
             sx={{
               mr: 5,
               display: { xs: 'none', md: 'flex' },
