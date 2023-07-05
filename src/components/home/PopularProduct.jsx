@@ -1,4 +1,3 @@
-import styled from '@emotion/styled'
 import { fetchPopularProduct } from '../../utils/homeHelper'
 import {
   Box,
@@ -13,6 +12,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { useEffect, useState } from 'react'
 import { useTheme } from '@emotion/react'
+import PopularProductCard from './PopularProductCard'
+import CarouselProductCard from './CarouselProductCard'
 
 const PopularProduct = () => {
   const theme = useTheme()
@@ -63,44 +64,7 @@ const PopularProduct = () => {
                 key={item.product_id}
                 style={{ height: '100%', cursor: 'pointer' }}
               >
-                <Box
-                  sx={{
-                    height: '350px',
-                    padding: '1rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    '&>p': {
-                      flexGrow: 0,
-                    },
-                  }}
-                  raised={true}
-                >
-                  <Typography variant="body1" sx={{ color: 'red' }}>
-                    Recommend
-                  </Typography>
-                  <Typography variant="h6" color="text.secondary">
-                    {item.product_name}
-                  </Typography>
-                  <Typography variant="h6" color="error">
-                    {(+item.product_price).toLocaleString('zh-TW', {
-                      style: 'currency',
-                      currency: 'NTD',
-                      minimumFractionDigits: 0,
-                    })}
-                  </Typography>
-                  <Box sx={{ flexGrow: 1 }}>
-                    <CardMedia
-                      src={`/images/${item.product_pic[0]}`}
-                      sx={{
-                        objectFit: 'cover',
-                        width: '100%',
-                        height: '100%',
-                        verticalAlign: 'top',
-                      }}
-                      component="img"
-                    ></CardMedia>
-                  </Box>
-                </Box>
+                <CarouselProductCard item={item} />
               </SwiperSlide>
             )
           })}
@@ -116,55 +80,7 @@ const PopularProduct = () => {
                   xs={12}
                   key={item.product_id}
                 >
-                  <Card
-                    sx={{
-                      height: '100%',
-                      padding: '1rem',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease-in',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      '&>p': {
-                        flexGrow: 0,
-                      },
-                      '&:hover': {
-                        transform: 'scale(1.01)',
-                        boxShadow: '2px 4px 16px rgba(0,0,0,.16);',
-                      },
-                    }}
-                    raised={true}
-                  >
-                    <Typography
-                      variant={isMd ? 'subtitle' : 'body1'}
-                      sx={{ color: 'red', fontSize: '12px' }}
-                    >
-                      Recommend
-                    </Typography>
-                    <Typography
-                      variant={isMd ? 'h6' : 'body1'}
-                      color="text.secondary"
-                    >
-                      {item.product_name}
-                    </Typography>
-                    <Typography variant={isMd ? 'h6' : 'body1'} color="error">
-                      {(+item.product_price).toLocaleString('zh-TW', {
-                        style: 'currency',
-                        currency: 'NTD',
-                        minimumFractionDigits: 0,
-                      })}
-                    </Typography>
-                    <Box sx={{ flexGrow: 1 }}>
-                      <CardMedia
-                        src={`/images/${item.product_pic[0]}`}
-                        sx={{
-                          objectFit: 'cover',
-                          width: '100%',
-                          height: '100%',
-                        }}
-                        component="img"
-                      ></CardMedia>
-                    </Box>
-                  </Card>
+                  <PopularProductCard item={item} />
                 </Grid>
               )
             })}

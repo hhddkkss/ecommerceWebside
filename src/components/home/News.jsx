@@ -12,6 +12,7 @@ import {
 import { fetchNews } from '../../utils/homeHelper'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
+import NewsCard from './NewsCard'
 
 const News = () => {
   const [newsData, setNewsData] = useState([])
@@ -50,82 +51,7 @@ const News = () => {
         <Grid container spacing={6} alignItems="stretch">
           {newsData.map((item) => (
             <Grid item key={item.article_id} sm={4} xs={12}>
-              <Card
-                sx={{
-                  height: '100%',
-                  transition: 'backgroundColor 0.3s ease-in',
-                  '&:hover': {
-                    backgroundColor: '#ddd',
-                  },
-                  '&:hover > div > img': {
-                    transform: 'scale(1.03)',
-                  },
-                }}
-                raised={true}
-              >
-                <Box sx={{ overflow: 'hidden' }}>
-                  <CardMedia
-                    sx={{
-                      height: '200px',
-                      objectFit: 'cover',
-                      transition: 'transform 0.5s ease-in',
-                      verticalAlign: 'middle',
-                      clipPath:
-                        'polygon(0 70%, 0 0, 100% 0, 100% 70%, 50% 85%)',
-                    }}
-                    component="img"
-                    image={'/images/article/' + item.article_pic_main}
-                  />
-                </Box>
-                <CardContent
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }}
-                >
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="div"
-                    sx={{
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      display: '-webkit-box',
-                      WebkitLineClamp: '1',
-                      WebkitBoxOrient: 'vertical',
-                      mb: 2,
-                    }}
-                  >
-                    {item.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      display: '-webkit-box',
-                      WebkitLineClamp: '5',
-                      WebkitBoxOrient: 'vertical',
-                      marginBottom: 2,
-                    }}
-                  >
-                    {item.content_1}
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    color="text.primary"
-                    sx={{ textAlign: 'right' }}
-                  >
-                    {dayjs(item.created_at).format('YYYY-MM-DD')}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" variant="contained" color={'primary'}>
-                    Learn More
-                  </Button>
-                </CardActions>
-              </Card>
+              <NewsCard item={item} />
             </Grid>
           ))}
         </Grid>
