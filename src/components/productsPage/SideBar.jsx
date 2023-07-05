@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import KeyboardDoubleArrowRightTwoToneIcon from '@mui/icons-material/KeyboardDoubleArrowRightTwoTone'
-
+import { debounce } from '../../utils/globalHelper'
 const brandOption = [
   '全部品牌',
   'Apple',
@@ -134,7 +134,11 @@ const SideBar = ({
 
   return (
     <>
-      <Container sideBarExtend={sideBarExtend} className="sidebar-content">
+      <Container
+        sideBarExtend={sideBarExtend}
+        className="sidebar-content"
+        onMouseLeave={debounce(toggleSideBar)}
+      >
         <List>
           <ListTitle>商品排序 -</ListTitle>
           {sortOption.map((item, index) => {
@@ -170,7 +174,11 @@ const SideBar = ({
         </List>
       </Container>
 
-      <SideBarButton onClick={toggleSideBar} sideBarExtend={sideBarExtend}>
+      <SideBarButton
+        onClick={toggleSideBar}
+        sideBarExtend={sideBarExtend}
+        onMouseEnter={debounce(toggleSideBar)}
+      >
         選單
         <KeyboardDoubleArrowRightTwoToneIcon />
       </SideBarButton>
