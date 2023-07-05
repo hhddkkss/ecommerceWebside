@@ -53,13 +53,13 @@ const Product = () => {
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement
 
-    if (scrollTop + clientHeight + 300 > scrollHeight) {
+    if (scrollTop + clientHeight > scrollHeight * 0.9) {
       setLoadMore(true)
     }
   }
   //第三步 使用useEffect 偵聽scroll事件
   useEffect(() => {
-    window.addEventListener('scroll', throttle(handleScroll))
+    window.addEventListener('scroll', throttle(handleScroll, 500))
   }, [])
 
   //第四步 當loadMore的值改變時 要增加顯示的商品數量

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import Grid from '@mui/material/Grid'
-import {  Alert, Snackbar } from '@mui/material'
+import { Alert, Box, Snackbar } from '@mui/material'
 import { useState } from 'react'
 import ProductCard from './ProductCard'
 
@@ -22,7 +22,6 @@ const BottomMsg = styled.p`
 `
 
 const ProductDisplay = ({ products, noMoreProducts, sideBarExtend }) => {
-
   const [msgOpen, setMsgOpen] = useState(false)
 
   const handleMsgOpen = () => {
@@ -33,18 +32,10 @@ const ProductDisplay = ({ products, noMoreProducts, sideBarExtend }) => {
     setMsgOpen(false)
   }
 
-
   return (
     <ProductCards
       sideBarExtend={sideBarExtend}
       sx={{
-        width: {
-          xl: '1200px',
-          lg: '1200px',
-          md: '900px',
-          sm: '600px',
-          xs: '90%',
-        },
         margin: '0 auto',
       }}
     >
@@ -68,24 +59,39 @@ const ProductDisplay = ({ products, noMoreProducts, sideBarExtend }) => {
           商品成功加入比較列表!
         </Alert>
       </Snackbar>
+      <Box sx={{ paddingLeft: { xs: 2, sm: 0 } }}>
+        <Grid
+          container
+          spacing={2}
+          mb={2}
+          sx={{
+            width: {
+              xl: '1200px',
+              lg: '1200px',
+              md: '900px',
+              sm: '600px',
+              xs: '100%',
+            },
+          }}
+        >
+          {products.map((product) => {
+            return (
+              <Grid
+                item
+                key={product.product_id}
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                xl={2.4}
+              >
+                <ProductCard product={product} handleMsgOpen={handleMsgOpen} />
+              </Grid>
+            )
+          })}
+        </Grid>
+      </Box>
 
-      <Grid container spacing={2} mb={2}>
-        {products.map((product) => {
-          return (
-            <Grid
-              item
-              key={product.product_id}
-              xs={12}
-              sm={6}
-              md={4}
-              lg={3}
-              xl={2.4}
-            >
-              <ProductCard product={product} handleMsgOpen={handleMsgOpen} />
-            </Grid>
-          )
-        })}
-      </Grid>
       {noMoreProducts && <BottomMsg>已經到底了，沒有更多商品了～～</BottomMsg>}
     </ProductCards>
   )
