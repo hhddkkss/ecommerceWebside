@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProduct } from './redux/productSlice'
 import { fetchUserCart } from './redux/cartSlice'
+import { setLogin } from './redux/userSlice'
 
 const theme = createTheme({
   normal: {
@@ -56,11 +57,15 @@ const theme = createTheme({
 function App() {
   const { memberId } = useSelector((state) => state.user.profile)
   const dispatch = useDispatch()
+  const loginInfo = JSON.parse(localStorage.getItem('beebeeMemberAuth'))
 
   useEffect(() => {
     //每次去抓產品資訊
     dispatch(getProduct())
     dispatch(fetchUserCart(memberId))
+    if (loginInfo) {
+      dispatch(setLogin(loginInfo))
+    }
   }, [memberId])
 
   return (
