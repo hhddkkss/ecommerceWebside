@@ -2,13 +2,14 @@ import { createSlice } from '@reduxjs/toolkit'
 
 //設定登入狀態 如果local裡面沒有資料 使用初始裝態
 const initialState = {
-  profile: JSON.parse(localStorage.getItem('beebeeMemberAuth')) || {
+  profile: {
     authorized: false,
     memberId: '',
     memberEmail: '',
     memberName: '',
     token: '',
   },
+  loginState: 'login',
 }
 
 const userSlice = createSlice({
@@ -29,8 +30,12 @@ const userSlice = createSlice({
     setLogout(state, action) {
       state.profile = initialState.profile
     },
+
+    setCondition(state, action) {
+      state.loginState = action.payload
+    },
   },
 })
 
-export const { setLogin, setLogout } = userSlice.actions
+export const { setLogin, setLogout, setCondition } = userSlice.actions
 export default userSlice.reducer
