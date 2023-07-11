@@ -6,7 +6,7 @@ let initialState = {
 }
 
 const fetchProductData = async () => {
-  const res = await axios.get('http://localhost:3003/products/pd_api')
+  const res = await axios.get('http://192.168.1.104:3003/products/pd_api')
 
   if (res.data.length === 0) {
     throw new Error('取得商品資料失敗')

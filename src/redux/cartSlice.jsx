@@ -47,7 +47,7 @@ const cartSlice = createSlice({
 })
 
 const fetchCartData = async (member_id) => {
-  const res = await axios.get(`http://localhost:3003/cart/api/${member_id}`)
+  const res = await axios.get(`http://192.168.1.104:3003/cart/api/${member_id}`)
   // console.log(res, 'res')
 
   if (!res.data) {
@@ -88,7 +88,7 @@ export const addItemToCart = (member_id, product_id) => {
         throw new Error('請先登入在進行操作')
       }
 
-      const res = await axios.post('http://localhost:3003/cart/addItem', {
+      const res = await axios.post('http://192.168.1.104:3003/cart/addItem', {
         member_id,
         product_id,
       })
@@ -120,7 +120,7 @@ export const deleteItem = (member_id, sid) => {
     }
 
     const res = await axios.delete(
-      `http://localhost:3003/cart/delete_item/${member_id}/${sid}`
+      `http://192.168.1.104:3003/cart/delete_item/${member_id}/${sid}`
     )
 
     if (res.data[0].affectedRows !== 1) {
@@ -150,7 +150,7 @@ export const addQuantity = (member_id, sid, quantity) => {
         throw new Error('請先登入在進行操作')
       }
 
-      const res = await axios.put(`http://localhost:3003/cart/plus_quantity`, {
+      const res = await axios.put(`http://192.168.1.104:3003/cart/plus_quantity`, {
         quantity,
         sid,
         member_id,
@@ -183,7 +183,7 @@ export const minusQuantity = (member_id, sid, quantity) => {
         throw new Error('請先登入在進行操作')
       }
 
-      const res = await axios.put(`http://localhost:3003/cart/minus_quantity`, {
+      const res = await axios.put(`http://192.168.1.104:3003/cart/minus_quantity`, {
         member_id,
         quantity,
         sid,
@@ -217,7 +217,7 @@ export const emptyCart = (member_id) => {
       }
 
       const res = await axios.delete(
-        `http://localhost:3003/cart/empty_cart/${member_id}`
+        `http://192.168.1.104:3003/cart/empty_cart/${member_id}`
       )
 
       if (res.data[0].affectedRows !== 1) {

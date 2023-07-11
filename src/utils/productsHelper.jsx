@@ -56,7 +56,7 @@ export const filterProductByBrand = (arr, brand) => {
 
 export const fetchProducts = async () => {
   return await axios
-    .get('http://localhost:3003/products/pd_api')
+    .get('http://192.168.1.104:3003/products/pd_api')
     .then((response) => {
       let res = response.data
       return res
@@ -142,7 +142,7 @@ export const filterByCompareButton = (myCompareList, compareType) => {
 //比較產品
 export const fetchComparingDetails = async (compareIngList, compareType) => {
   return await axios
-    .post('http://localhost:3003/product_compare/compareIng', {
+    .post('http://192.168.1.104:3003/product_compare/compareIng', {
       compareIngList,
       compareType,
     })
