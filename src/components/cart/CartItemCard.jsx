@@ -1,4 +1,12 @@
-import { Box, CardMedia, IconButton, Typography, Card } from '@mui/material'
+import {
+  Box,
+  CardMedia,
+  IconButton,
+  Typography,
+  Card,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
@@ -15,13 +23,9 @@ const CartItemCard = (props) => {
   //點下刪除按鈕時 紀錄哪個商品點擊
   const { memberId: member_id } = useSelector((state) => state.user.profile)
 
-  const {
-    product_pic,
-    sid,
-    quantity,
-    product_name,
-    product_price,
-  } = props
+  const isMobile = useMediaQuery('(min-width:500px)')
+
+  const { product_pic, sid, quantity, product_name, product_price } = props
 
   const handleAddQuantity = (member_id, sid, quantity) => {
     dispatch(addQuantity(member_id, sid, quantity))
@@ -63,7 +67,7 @@ const CartItemCard = (props) => {
           </Box>
 
           <Typography
-            variant="h6"
+            variant={!isMobile ? 'body1' : 'h6'}
             fontFamily="jf-openhuninn"
             color="text.secondary"
           >
@@ -95,7 +99,10 @@ const CartItemCard = (props) => {
             >
               <RemoveIcon />
             </IconButton>
-            <Typography variant="h6" fontFamily="jf-openhuninn">
+            <Typography
+              variant={!isMobile ? 'body1' : 'h6'}
+              fontFamily="jf-openhuninn"
+            >
               {quantity}
             </Typography>
             <IconButton

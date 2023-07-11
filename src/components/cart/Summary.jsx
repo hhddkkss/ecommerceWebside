@@ -5,32 +5,85 @@ import {
   TextField,
   InputAdornment,
   Button,
-  List,
-  ListItem,
-  useTheme,
+  IconButton,
 } from '@mui/material'
-
 import DiscountIcon from '@mui/icons-material/Discount'
-import { useSelector } from 'react-redux'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import AlertMessage from './AlertMessage'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import axios from 'axios'
+import dayjs from 'dayjs'
+import { setCouponInfo, clearCouponInfo } from '../../redux/couponSlice'
 
 const Summary = () => {
+  const dispatch = useDispatch()
+
   const totalPrice = useSelector((state) => state.cart.cartTotalPrice)
+  const couponInfo = useSelector((state) => state.coupon.couponInfo)
+
+  const { hasCoupon, couponPrice, couponName } = couponInfo
+
+  const [couponInput, setCouponInput] = useState('')
+
+  const initError = { isError: false, errorMsg: '' }
+
+  const [couponError, setCouponError] = useState(initError)
+
+  const handleInputChange = (e) => {
+    setCouponInput(e.target.value)
+  }
+
+  const handleCancelCoupon = () => {
+    dispatch(clearCouponInfo())
+    setCouponInput('')
+    setCouponError(initError)
+  }
+
+  const handleCheckout = async () => {
+    const res = await axios.get(`http://192.168.1.104:3003/coupon/${couponInput}`)
+
+    //檢查輸入的優惠碼有沒有錯誤
+    if (res.data === 'error') {
+      setCouponError((prev) => ({
+        ...prev,
+        isError: true,
+        errorMsg: '沒有此優惠券 請重新輸入!!',
+      }))
+      return
+    }
+
+    //沒有錯誤的話 檢查是否過期
+    if (res.data !== 'error') {
+      const { discount, coupon_name, end_time } = res.data
+
+      const endTime = dayjs(end_time).format('YYYYMMDD hhmmss')
+      const time = dayjs(new Date()).format('YYYYMMDD hhmmss')
+
+      if (!dayjs(endTime).isAfter(time)) {
+        setCouponError((prev) => ({
+          ...prev,
+          isError: true,
+          errorMsg: '此優惠券已過期 請重新輸入!!',
+        }))
+        return
+      }
+
+      dispatch(
+        setCouponInfo({
+          hasCoupon: true,
+          couponName: coupon_name,
+          couponPrice: discount,
+        })
+      )
+      setCouponError(initError)
+    }
+  }
 
   const { memberId } = useSelector((state) => state.user.profile)
 
   return (
-    <Box
-      sx={{
-        flexShrink: 0,
-        maxWidth: '600px',
-        flexBasis: { md: '400px', xs: '100%' },
-        width: { xs: '100%' },
-        margin: '0 auto',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 2,
-      }}
-    >
+    <>
       <Card
         sx={{
           borderRadius: '20px',
@@ -81,31 +134,31 @@ const Summary = () => {
                 })}
           </Typography>
         </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            pb: 2,
-            borderBottom: '2px dotted #333 ',
-          }}
-        >
-          <Typography variant="subtitle1" color="secondary">
-            折扣
-          </Typography>
-          <Typography variant="body1" color="error">
-            {memberId
-              ? (120).toLocaleString('zh-TW', {
-                  style: 'currency',
-                  currency: 'NTD',
-                  minimumFractionDigits: 0,
-                })
-              : (0).toLocaleString('zh-TW', {
+        {hasCoupon && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              pb: 2,
+              borderBottom: '2px dotted #333 ',
+            }}
+          >
+            <Typography variant="subtitle1" color="secondary">
+              折扣
+            </Typography>
+            <Typography variant="subtitle1" color="secondary">
+              {couponName}
+            </Typography>
+            <Typography variant="body1" color="error">
+              {'-' +
+                (+couponPrice).toLocaleString('zh-TW', {
                   style: 'currency',
                   currency: 'NTD',
                   minimumFractionDigits: 0,
                 })}
-          </Typography>
-        </Box>
+            </Typography>
+          </Box>
+        )}
         <Box
           sx={{
             display: 'flex',
@@ -117,7 +170,7 @@ const Summary = () => {
           </Typography>
           <Typography variant="body1">
             {memberId
-              ? (totalPrice + 120).toLocaleString('zh-TW', {
+              ? (totalPrice + 120 - couponPrice || 0).toLocaleString('zh-TW', {
                   style: 'currency',
                   currency: 'NTD',
                   minimumFractionDigits: 0,
@@ -131,15 +184,28 @@ const Summary = () => {
         </Box>
         <Box sx={{ display: 'flex', gap: 2 }}>
           <TextField
+            size="small"
             sx={{ flexGrow: 2 }}
+            value={couponInput}
+            onChange={handleInputChange}
+            color="primary"
+            onKeyDown={(e) => {
+              e.key === 'Enter' && handleCheckout()
+            }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
                   <DiscountIcon />
                 </InputAdornment>
               ),
+              endAdornment: (
+                <IconButton onClick={handleCancelCoupon}>
+                  <HighlightOffIcon />
+                </IconButton>
+              ),
             }}
           />
+
           <Button
             variant="contained"
             sx={{
@@ -149,42 +215,18 @@ const Summary = () => {
                 background: '#C38111',
               },
             }}
+            onClick={handleCheckout}
           >
             兌換
           </Button>
         </Box>
+        {couponError.errorMsg && (
+          <Typography variant="caption" color="error">
+            {couponError.errorMsg}
+          </Typography>
+        )}
       </Card>
-
-      <Box
-        sx={{
-          alignSelf: 'stretch',
-          width: '100%',
-          background: '#677A9F',
-          borderRadius: '20px',
-        }}
-      >
-        <List>
-          <ListItem>感謝您選擇我們BeE！</ListItem>
-          <ListItem>
-            1. 請仔細檢查您的購物車，確保商品型號、數量和價格無誤。
-          </ListItem>
-          <ListItem>
-            2.
-            在結帳前，請閱讀並同意我們的購物政策和條款，以了解退換貨、退款和隱私保護等相關事項。
-          </ListItem>
-          <ListItem>
-            3.
-            如果您有任何問題或需要協助，請隨時聯繫我們的客戶服務團隊，我們將樂意為您提供支援。
-          </ListItem>
-          <ListItem>
-            謝謝您的支持！我們期待為您提供優質的購物體驗，並希望您滿意我們的產品和服務。祝您購物愉快！
-          </ListItem>
-        </List>
-      </Box>
-      <Button variant="contained" fullWidth sx={{ height: '50px' }}>
-        我要結帳
-      </Button>
-    </Box>
+    </>
   )
 }
 

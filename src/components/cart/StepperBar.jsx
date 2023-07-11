@@ -8,7 +8,7 @@ const steps = ['我的購物車', '填寫收件人資訊', '完成訂單']
 
 export default function StepperBar() {
   return (
-    <Box sx={{ width: '100%', mb: 4 }}>
+    <Box sx={{ width: '100%', mt: 4 }}>
       <Stepper activeStep={0} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>

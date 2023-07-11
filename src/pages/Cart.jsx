@@ -1,14 +1,12 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import CartDecoration from '../components/cart/CartDecoration'
-import { Box, Button, Typography, styled } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { Box, styled } from '@mui/material'
 import StepperBar from '../components/cart/StepperBar'
 import CardItemCard from '../components/cart/CartItemCard'
-import Summary from '../components/cart/Summary'
 import { useNavigate } from 'react-router-dom'
 import NotLogin from '../components/cart/NotLogin'
 import LoginNoItem from '../components/cart/LoginNoItem'
 import DeleteInfoModal from '../components/productsPage/DeleteInfoModal'
+import SummaryWrap from '../components/cart/SummaryWrap'
 
 const CartItemCards = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -50,17 +48,24 @@ const Cart = () => {
         paddingTop: 0,
       }}
     >
-      <CartDecoration />
       <StepperBar />
 
       <Box
         sx={{
           display: 'flex',
           gap: 4,
+          mt: 4,
           flexWrap: { xs: 'wrap', md: 'nowrap' },
         }}
       >
-        <CartItemCards sx={{ maxHeight: { sm: '600px' } }}>
+        <CartItemCards
+          sx={{
+            maxHeight: { sm: '600px' },
+            display: !memberId && 'flex',
+            justifyContent: !memberId && 'center',
+            alignItems: !memberId && 'center',
+          }}
+        >
           {/* 登入後 登入前 畫面 */}
           {memberId ? (
             cartItem.length === 0 ? (
@@ -85,7 +90,7 @@ const Cart = () => {
             <NotLogin />
           )}
         </CartItemCards>
-        <Summary />
+        <SummaryWrap />
       </Box>
     </Box>
   )
